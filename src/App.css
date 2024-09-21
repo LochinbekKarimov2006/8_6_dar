@@ -1,0 +1,19 @@
+.active{
+  background-color:#5051f9 ;
+
+}
+.active svg path{
+  fill:#fff;
+}
+/* .link svg path{
+  fill:#5f6388;
+} */
+.link:hover {
+  background-color: #d6d6d654;
+}
+.link:hover svg path{
+  fill:#1f0d0d;
+}
+.link{
+  transition: all .5s ease;
+}
