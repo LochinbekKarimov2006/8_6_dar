@@ -1,21 +1,367 @@
-import React, { useEffect } from 'react'
+import React, { useState } from "react";
+import {
+  Plus,
+  X,
+  MoreHorizontal,
+  User,
+  Calendar,
+  Tag,
+  Paperclip,
+  Eye,
+} from "lucide-react";
 
-function Home() {
-  useEffect(() => {
-    window.$crisp = []; 
-    window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a"; 
-    (function () {
-      const d = document;
-      const s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s); 
-    })();
-  }, []);
+const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
+  const [description, setDescription] = useState(card.description || "");
+  const [showMembers, setShowMembers] = useState(false);
+  const [showLabels, setShowLabels] = useState(false);
+  const [showDates, setShowDates] = useState(false);
+
+  const updateCard = (updates) => {
+    onUpdate({ ...card, ...updates });
+  };
+
+  const priorityColors = {
+    low: "bg-green-500",
+    medium: "bg-yellow-500",
+    high: "bg-red-500",
+  };
 
   return (
-    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ipsum consequuntur porro possimus iure. Iure magni perferendis voluptates ut, necessitatibus illum itaque distinctio debitis reprehenderit ratione quidem laudantium voluptas et alias voluptatum nemo optio eos beatae enim ex, laboriosam eveniet? Reiciendis earum eum laboriosam tempore. Excepturi repellat quas dicta recusandae tempora reprehenderit suscipit maiores, odit facilis! Voluptates totam iste, provident deserunt, fugit a dolores natus earum quisquam ratione quae accusantium modi minima rem nemo facilis. Reiciendis minima incidunt aliquid cumque doloremque mollitia, vel odit ducimus, voluptatibus voluptatum, quaerat dignissimos quo excepturi. Accusamus provident rerum nihil fuga ipsa voluptas quas consectetur voluptatibus similique, veritatis dolores quisquam tenetur, obcaecati velit magni vero. Laudantium eum saepe voluptatem blanditiis dolorem fugiat hic vel dicta aperiam? Beatae illum deserunt maxime qui cum harum aliquid ea incidunt provident? Dignissimos sint quis facere aut placeat in tempora magni voluptas, atque vel blanditiis ipsa reiciendis adipisci alias cupiditate suscipit eum aperiam, vero non dolores quo dicta ducimus cum unde. Dolore at eum optio incidunt ducimus earum laudantium nam voluptas qui iste tempora numquam deleniti doloribus obcaecati quasi aliquam non accusantium quibusdam pariatur, iusto doloremque praesentium accusamus. Officiis, consequuntur suscipit enim ut excepturi unde accusamus consequatur soluta, quibusdam ducimus placeat dolorum velit fuga obcaecati! Doloremque, aperiam. Soluta rerum eveniet totam iusto, voluptatem earum maiores perspiciatis unde qui sed facilis enim, quae eligendi quis et! Eveniet iusto incidunt ullam quibusdam tempore mollitia modi laborum ratione. Dolores sunt et minus cumque reiciendis assumenda accusamus, placeat, laudantium perferendis minima obcaecati enim? Sit laboriosam saepe obcaecati fugit repellendus nihil harum? Sequi fugiat temporibus doloremque est voluptate earum placeat consectetur accusantium, rem iste laudantium, rerum neque voluptatibus ea, a non expedita ex impedit nemo veritatis. Quo, non quaerat iusto excepturi voluptas tempora, expedita praesentium omnis labore fugit fugiat. Consequatur, assumenda perspiciatis quos eaque excepturi odio adipisci quis eveniet, quisquam veritatis officia inventore? Odit assumenda, animi ea quidem veniam fuga quia cum aut, adipisci repellendus consequuntur totam quibusdam, est ratione quod laborum esse nisi. Quas, deserunt laboriosam dolor modi, exercitationem illum, repudiandae voluptates consectetur expedita ex qui accusamus eveniet? Sint necessitatibus minus corrupti laudantium eligendi totam dolores aspernatur, illo optio maxime minima alias, obcaecati esse nostrum inventore? Nulla quo eos hic, ipsum nemo dignissimos ea, modi ab possimus maxime sapiente obcaecati ipsam officiis suscipit deleniti. Aliquam pariatur amet at! Velit excepturi laborum minus, ad sint sunt blanditiis incidunt natus corporis ullam praesentium error soluta officiis accusantium inventore esse itaque fuga aliquid quasi! Vel modi, quo ea, vero voluptas hic at porro tempora fugiat dolor nesciunt quidem aperiam iure vitae. Quidem natus laudantium, consectetur quae eveniet incidunt, autem dignissimos reprehenderit quaerat minima illum cum. Sed repudiandae, asperiores alias assumenda incidunt commodi ullam, optio, ea consectetur quo qui? Eaque rem neque perferendis incidunt recusandae cum suscipit voluptas non voluptatem. Minima quasi et hic odit atque aliquid sunt quis ducimus distinctio facilis perferendis enim dignissimos, natus necessitatibus blanditiis tempora dolore tempore ab facere nobis? Labore consequatur, accusantium cum aspernatur repellendus ad unde pariatur illum necessitatibus alias officiis praesentium amet nemo laudantium eaque ratione suscipit maxime vero, dolore totam, quibusdam iste impedit magnam assumenda? Iusto, consequatur et? Quis, et. Cupiditate magni iste impedit culpa. Laborum cumque hic natus, ratione quas officia harum molestiae quod ab reiciendis? Reprehenderit nihil maiores magnam non iure corporis nulla eum blanditiis quos cum possimus est rem sit, recusandae porro reiciendis quo enim tenetur aspernatur nesciunt. Porro ipsum quae perspiciatis, odit tenetur cum exercitationem provident sapiente dolorum voluptas dolorem recusandae id. Modi doloribus optio quaerat molestias dolorem voluptate nemo voluptatibus quasi iusto! Aliquid, doloribus. Provident labore reiciendis harum quia saepe neque dicta iure nostrum! Quia ullam, qui excepturi hic nesciunt rerum voluptas praesentium quos modi, cupiditate illo inventore molestias, distinctio repellat ad itaque saepe atque suscipit quas eligendi minima! Laboriosam autem, animi earum id, cupiditate neque et voluptatum recusandae molestiae repellat beatae, ad adipisci quod ullam quis laudantium temporibus tempore maiores officiis officia! Delectus obcaecati quibusdam labore possimus facere odit libero optio, nulla, quisquam dignissimos repellat deserunt nihil saepe id sapiente commodi! Voluptatum expedita odit harum sequi quia labore iste tenetur saepe asperiores? Adipisci molestias, inventore sint ipsum, cum autem exercitationem tempore deleniti natus dignissimos blanditiis atque accusantium voluptatum veritatis? Quisquam qui nesciunt laborum voluptates, beatae reprehenderit doloribus quos praesentium, optio totam cumque officiis itaque dignissimos neque obcaecati aliquam! Facilis blanditiis repellat dolores unde, ut, nesciunt pariatur modi quisquam consequuntur aperiam culpa eligendi eius dicta fugiat! Suscipit quia cupiditate totam voluptate error ea aspernatur mollitia minus incidunt quos odit laborum dolores, assumenda corporis. Itaque deleniti porro quam in dolor voluptatem? Quaerat voluptatem totam corrupti? Quo, optio, neque modi quaerat sunt eum cum itaque quia veniam omnis magni ut doloribus tempore qui? Obcaecati sit vel quo architecto iusto neque magni corrupti voluptatibus ea! Ab deleniti voluptate vero dignissimos sunt beatae necessitatibus quaerat, deserunt dolore laborum, alias nemo expedita illo libero numquam sit, iusto impedit architecto odio natus ut voluptas! Tenetur fugit eos ullam ut deserunt perspiciatis non. Facilis, aperiam. Inventore ducimus facilis culpa assumenda velit ipsa sed voluptatum nihil, odit nemo enim distinctio expedita, voluptatem consectetur minus ad amet eaque quaerat neque animi. Minus quisquam tempora rerum veritatis. Pariatur dignissimos architecto numquam nostrum repellendus magnam, porro sed eius rem natus praesentium magni optio laboriosam, soluta necessitatibus? Ullam quod, dolorem, in perspiciatis facilis, et recusandae voluptatum rem numquam veniam vitae ad amet facere velit magni delectus? Autem, dolor veniam? Quae animi quas pariatur dolores odit cum quibusdam vitae eaque quo hic beatae iusto accusamus debitis quos necessitatibus, facere veniam consequuntur recusandae doloribus! Doloribus dolorum itaque vel voluptatem tempore doloremque. Nobis accusantium quibusdam cumque tempore autem ducimus? Accusantium quo autem quae expedita nemo. Quo fugiat sapiente vero ullam veritatis nam beatae ex provident optio saepe aliquam id consectetur, aut consequatur nisi dicta facere illo itaque. Quaerat vero provident placeat. Dolorum quae natus voluptatum quia ea ex cum at corrupti voluptatem minima libero nulla enim, a dolor debitis commodi facere accusamus earum repellat iure exercitationem doloremque? Quaerat totam ex dicta in, beatae dolorum ab illo esse inventore impedit rem vel aspernatur tempora sit? Porro aperiam eaque earum voluptatem repudiandae esse aspernatur autem ducimus odio repellendus, nisi, tempora, officiis dicta minima animi reprehenderit dolore modi fuga eum perspiciatis aliquid? Molestiae ducimus modi tempora deleniti nemo rem blanditiis quis commodi cumque debitis. Nostrum consequuntur ex in expedita aliquam nisi quasi neque, earum saepe ea itaque eveniet commodi placeat provident fugiat deleniti autem harum, maiores ad magnam necessitatibus possimus corporis quis tempore? Totam similique tempora molestiae. Veritatis minus rerum illo dolorem voluptatum impedit dicta debitis. Delectus recusandae enim tenetur velit deleniti doloremque quas sed molestias veniam perferendis cum qui tempore ipsum eaque voluptates quam fugit voluptatum, nobis eum ipsa saepe earum accusantium ullam exercitationem. Tempora maiores at dolor deleniti. Deserunt qui veritatis libero doloremque ipsa error adipisci, laborum quibusdam tempore nemo repellendus quia perferendis, asperiores cupiditate, aut ullam dolor tenetur enim deleniti! Officiis facilis dolores iure aut accusantium. Sit soluta itaque error sequi fuga maxime provident debitis quae! Corporis quam porro asperiores eligendi tenetur nihil, similique a sed nam tempore maxime sequi cumque voluptatibus facere doloremque et voluptates harum numquam, dignissimos modi minima unde recusandae alias. Veniam, explicabo? Magni corporis suscipit eaque, dicta libero sit in. A exercitationem omnis expedita earum voluptas itaque neque provident ea rerum. Debitis, harum quia fugit et placeat, libero fugiat porro quis quisquam omnis mollitia dolore. Doloribus repudiandae suscipit placeat recusandae enim harum veritatis, obcaecati corporis earum doloremque perferendis eos architecto in excepturi deserunt reprehenderit voluptates necessitatibus laboriosam aliquam temporibus iure dolores ipsa. Sit ab magni placeat assumenda tempora, eum vero ipsa doloribus cupiditate amet, asperiores, harum molestias porro eos ad qui ut error reprehenderit quasi totam necessitatibus. Aspernatur tenetur consequatur quas laudantium fugit nobis ullam doloremque obcaecati vitae alias non est doloribus corporis labore officiis, sit minima ex. Eligendi quam perspiciatis tempora laudantium assumenda molestias vero autem deserunt nesciunt reiciendis dolore, adipisci cumque debitis facere repellat neque inventore doloribus saepe at? Voluptatibus aspernatur qui, minima vel eius neque dolor officiis cupiditate omnis laborum impedit aperiam illum enim ipsa amet dolorum fugiat saepe pariatur repudiandae eligendi nesciunt accusantium non. Ea harum autem at minima officia unde excepturi in totam quas praesentium. Recusandae maxime ex vel quibusdam sit dicta aliquam nam minima accusamus suscipit quam illo eaque qui laudantium aperiam asperiores placeat reiciendis, autem mollitia saepe cupiditate minus. Sit necessitatibus illum similique blanditiis, nesciunt distinctio quo vero fugiat, sequi molestiae nobis porro vitae ea ad reiciendis nostrum amet in? Ex consectetur eligendi vitae saepe perferendis pariatur ullam explicabo eveniet, dignissimos consequatur omnis rerum possimus tempora ut accusantium mollitia inventore corrupti obcaecati? Aspernatur omnis tenetur, iste, laboriosam ab tempore quas, sapiente quis perferendis deleniti eos quaerat eaque nesciunt harum at. Impedit, saepe ut aspernatur tenetur voluptate at temporibus eius possimus quod reiciendis laborum ipsam sequi, eveniet rem laudantium recusandae sapiente perspiciatis ullam? Recusandae natus necessitatibus nobis aperiam doloremque distinctio, unde accusantium nulla rem temporibus vel labore ullam. Vel iure nesciunt tempora. Possimus, quia temporibus saepe quo aspernatur, eveniet excepturi earum minus corrupti ea odit, error porro! Amet dolores nesciunt at eveniet, officia, inventore modi veritatis unde esse repellendus nobis! Nostrum consequatur natus rem aperiam aliquam reprehenderit cupiditate voluptatum in maiores quam voluptatibus officia autem mollitia modi cum non odio perspiciatis veniam, nulla est? Illo vel cumque rem laudantium. Ipsa eveniet amet deleniti magnam vel aspernatur labore expedita quisquam possimus sit, deserunt dignissimos laborum quidem error. Neque iste architecto voluptatibus quis provident sequi, blanditiis ipsum magnam. Ipsa autem sit esse earum atque quae id magni hic non dicta! Inventore perferendis fugiat consequatur ratione nostrum, nesciunt velit nobis accusamus, maxime, voluptatum adipisci tempora totam. Accusamus id error aliquid voluptatem doloremque natus quae debitis! Consequatur, architecto excepturi? Animi eveniet, recusandae laboriosam error officiis ex dolorem dolores saepe commodi repellendus iste quo molestias reprehenderit? Vero, iusto explicabo! Voluptatum, hic quis maiores ab dolorum cupiditate. Deserunt dolores architecto, iusto hic quibusdam labore! Provident excepturi hic sequi nihil mollitia quod, veniam exercitationem voluptatem temporibus laboriosam itaque amet ipsum eligendi ullam corporis iure omnis vitae, atque vel iusto placeat, quisquam delectus et nam. Voluptatem atque dolor facere vitae qui dolorum, nisi deserunt. Optio recusandae vel saepe blanditiis provident quo odit reprehenderit architecto distinctio omnis, officia error minus eum quas. Minima ipsum enim provident error corrupti. Delectus repellendus hic labore sed quos modi reiciendis molestias, recusandae, nesciunt facere distinctio natus. Cumque reiciendis corrupti quae facere. Eos itaque numquam praesentium, cupiditate iure impedit labore vero fuga deleniti accusantium adipisci soluta iste minus at iusto provident cum est! Est harum earum neque libero maxime iure obcaecati ullam, delectus animi non laudantium saepe. Nemo possimus ad officiis at quibusdam, aspernatur reiciendis tempore ut tenetur cumque enim optio voluptatum labore numquam id quam hic et eligendi? Pariatur quis fuga placeat molestiae asperiores sint necessitatibus commodi, vitae quae deleniti voluptatem a quo quasi exercitationem, eum odit. Quae saepe eligendi, veritatis sed obcaecati quos excepturi eum delectus cumque earum rem quis dicta debitis nostrum pariatur rerum consectetur similique id. Maiores mollitia magnam ducimus quisquam, culpa soluta error? Numquam, cumque, velit doloremque iste autem dolor tempore blanditiis vel enim, saepe est quibusdam laboriosam nam nobis commodi vero eius perferendis inventore ad iure in fugiat aliquam sed! Voluptates ipsa fugit dicta a, neque reprehenderit magnam magni mollitia dolorum inventore molestiae voluptas sit eius veniam exercitationem tempora ab debitis accusantium placeat eveniet. Quo nulla unde vel repellendus, exercitationem cum adipisci, fuga nesciunt nemo repellat et animi error sint nisi sit aliquid placeat neque ab a, facilis vitae inventore modi? Quas quasi quo ipsam hic. Provident minus distinctio accusantium vero explicabo consequatur quos neque suscipit ipsa quod maiores eveniet aspernatur, fugiat deleniti rem. Porro dolores eveniet commodi voluptatem incidunt maxime ipsa reiciendis consequatur numquam debitis, adipisci dolorem ipsum accusantium eius exercitationem saepe dignissimos quos amet doloremque deleniti eligendi, sit quidem repellendus! Vero aperiam earum exercitationem quas ex. Nulla error ut, aliquid minus iure porro aut incidunt temporibus, aliquam impedit, dicta accusantium laboriosam unde suscipit in delectus. Omnis, illo autem! Eaque dicta dolorum fugiat nostrum! Quibusdam quia accusantium aperiam libero porro temporibus, dolore error excepturi neque, eum voluptatem.</div>
-  )
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-white">{card.name}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-white"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <div className="flex">
+            <div className="w-2/3 pr-4">
+              <div className="mb-4">
+                <div className="flex items-center text-gray-400 mb-2">
+                  <Tag size={16} className="mr-2" />
+                  <span>in list {card.list}</span>
+                </div>
+                <h3 className="text-white font-semibold mb-2">Description</h3>
+                <textarea
+                  className="w-full bg-gray-700 text-white rounded p-2 min-h-[100px]"
+                  placeholder="Add a more detailed description..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  onBlur={() => updateCard({ description })}
+                />
+              </div>
+              <div className="mb-4">
+                <h3 className="text-white font-semibold mb-2">Activity</h3>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
+                    SW
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Write a comment..."
+                    className="flex-grow bg-gray-700 text-white rounded p-2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-1/3">
+              <div className="mb-4">
+                <h3 className="text-white font-semibold mb-2">Add to card</h3>
+                <button
+                  className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600 flex items-center justify-between"
+                  onClick={() => setShowMembers(!showMembers)}
+                >
+                  <span>
+                    <User size={16} className="inline mr-2" /> Members
+                  </span>
+                  {card.assignee && (
+                    <span className="text-sm bg-blue-500 px-2 py-1 rounded">
+                      {card.assignee}
+                    </span>
+                  )}
+                </button>
+                {showMembers && (
+                  <div className="bg-gray-700 p-2 rounded mb-2">
+                    <input
+                      type="text"
+                      placeholder="Search members"
+                      className="w-full bg-gray-600 text-white rounded p-1 mb-2"
+                    />
+                    <div
+                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
+                      onClick={() => updateCard({ assignee: "SW" })}
+                    >
+                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
+                        SW
+                      </div>
+                      <span>splinter wow</span>
+                    </div>
+                  </div>
+                )}
+                <button
+                  className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600 flex items-center justify-between"
+                  onClick={() => setShowLabels(!showLabels)}
+                >
+                  <span>
+                    <Tag size={16} className="inline mr-2" /> Labels
+                  </span>
+                  {card.priority && (
+                    <span
+                      className={`text-sm ${
+                        priorityColors[card.priority]
+                      } px-2 py-1 rounded`}
+                    >
+                      {card.priority}
+                    </span>
+                  )}
+                </button>
+                {showLabels && (
+                  <div className="bg-gray-700 p-2 rounded mb-2">
+                    {["low", "medium", "high"].map((priority) => (
+                      <div
+                        key={priority}
+                        className={`${priorityColors[priority]} text-white p-1 rounded mb-1 cursor-pointer`}
+                        onClick={() => updateCard({ priority })}
+                      >
+                        {priority}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button
+                  className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600 flex items-center justify-between"
+                  onClick={() => setShowDates(!showDates)}
+                >
+                  <span>
+                    <Calendar size={16} className="inline mr-2" /> Dates
+                  </span>
+                  {card.dueDate && (
+                    <span className="text-sm bg-gray-600 px-2 py-1 rounded">
+                      {card.dueDate}
+                    </span>
+                  )}
+                </button>
+                {showDates && (
+                  <div className="bg-gray-700 p-2 rounded mb-2">
+                    <input
+                      type="date"
+                      className="w-full bg-gray-600 text-white rounded p-1 mb-2"
+                      value={card.dueDate || ""}
+                      onChange={(e) => updateCard({ dueDate: e.target.value })}
+                    />
+                  </div>
+                )}
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  <Paperclip size={16} className="inline mr-2" /> Attachment
+                </button>
+              </div>
+              <div className="mb-4">
+                <h3 className="text-white font-semibold mb-2">Actions</h3>
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  Move
+                </button>
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  Copy
+                </button>
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  Make template
+                </button>
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  Archive
+                </button>
+                <button className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600">
+                  Share
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+function Home() {
+  const [lists, setLists] = useState([]);
+  const [currentList, setCurrentList] = useState(null);
+  const [isAddingList, setIsAddingList] = useState(false);
+  const [listName, setListName] = useState("");
+  const [isAddingCard, setIsAddingCard] = useState(false);
+  const [cardName, setCardName] = useState("");
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleAddList = () => {
+    if (listName.trim()) {
+      const newList = { id: Date.now(), name: listName.trim(), cards: [] };
+      setLists([...lists, newList]);
+      setListName("");
+      setIsAddingList(false);
+    }
+  };
+
+  const handleAddCard = () => {
+    if (cardName.trim() && currentList) {
+      const newCard = {
+        id: Date.now(),
+        name: cardName.trim(),
+        description: "",
+        assignee: "",
+        dueDate: "",
+        priority: "",
+        list: currentList.name,
+      };
+      const updatedLists = lists.map((list) => {
+        if (list.id === currentList.id) {
+          return {
+            ...list,
+            cards: [...list.cards, newCard],
+          };
+        }
+        return list;
+      });
+      setLists(updatedLists);
+      setCardName("");
+      setIsAddingCard(false);
+    }
+  };
+
+  const openCardModal = (card) => {
+    setSelectedCard(card);
+  };
+
+  const closeCardModal = () => {
+    setSelectedCard(null);
+  };
+
+  const updateCard = (updatedCard) => {
+    const updatedLists = lists.map((list) => ({
+      ...list,
+      cards: list.cards.map((card) =>
+        card.id === updatedCard.id ? updatedCard : card
+      ),
+    }));
+    setLists(updatedLists);
+    setSelectedCard(updatedCard);
+  };
+
+  return (
+    <div className="p-4 bg-gray-900 min-h-screen">
+      <div className="flex space-x-4 overflow-x-auto">
+        {lists.map((list) => (
+          <div
+            key={list.id}
+            className="bg-gray-800 p-2 rounded-md min-w-[250px]"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-white font-medium">{list.name}</h3>
+              <button className="text-gray-400 hover:text-white">
+                <MoreHorizontal size={16} />
+              </button>
+            </div>
+            {list.cards.map((card) => (
+              <div
+                key={card.id}
+                className="bg-gray-700 p-2 rounded mb-2 text-white cursor-pointer hover:bg-gray-600"
+                onClick={() => openCardModal(card)}
+              >
+                {card.name}
+              </div>
+            ))}
+            {currentList?.id === list.id && isAddingCard ? (
+              <div className="mt-2">
+                <input
+                  type="text"
+                  value={cardName}
+                  onChange={(e) => setCardName(e.target.value)}
+                  placeholder="Enter card title..."
+                  className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                  autoFocus
+                />
+                <div className="flex justify-between items-center">
+                  <button
+                    onClick={handleAddCard}
+                    className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                  >
+                    Add card
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsAddingCard(false);
+                      setCardName("");
+                    }}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setCurrentList(list);
+                  setIsAddingCard(true);
+                }}
+                className="flex items-center gap-2 text-gray-400 hover:text-white mt-2"
+              >
+                <Plus size={16} />
+                Add a card
+              </button>
+            )}
+          </div>
+        ))}
+        {isAddingList ? (
+          <div className="bg-gray-800 p-2 rounded-md min-w-[250px]">
+            <input
+              type="text"
+              value={listName}
+              onChange={(e) => setListName(e.target.value)}
+              placeholder="Enter list title..."
+              className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+              autoFocus
+            />
+            <div className="flex justify-between items-center">
+              <button
+                onClick={handleAddList}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+              >
+                Add list
+              </button>
+              <button
+                onClick={() => {
+                  setIsAddingList(false);
+                  setListName("");
+                }}
+                className="text-gray-400 hover:text-white"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setIsAddingList(true)}
+            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
+          >
+            <Plus size={16} />
+            Add a list
+          </button>
+        )}
+      </div>
+
+      {selectedCard && (
+        <TrelloLikeModal
+          card={selectedCard}
+          onClose={closeCardModal}
+          onUpdate={updateCard}
+        />
+      )}
+    </div>
+  );
 }
 
-export default Home
+export default Home;
