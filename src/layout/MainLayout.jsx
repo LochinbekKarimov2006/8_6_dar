@@ -9,7 +9,7 @@ function MainLayout() {
         <Menyu/>
          <div className='w-[100%]'>
            <Navbar/>
-           <div className='overflow-y-auto h-[80vh]'>
+           <div className='overflow-y-auto h-[91vh]'>
            <Outlet/>
            </div>
          </div>
