@@ -41,6 +41,8 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   
 
 
+
+  
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-800 w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
