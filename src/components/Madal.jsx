@@ -2,7 +2,7 @@ import React from 'react'
 
 function Madal() {
   return (
-    <div>Madal</div>
+    <div>salom</div>
   )
 }
 
