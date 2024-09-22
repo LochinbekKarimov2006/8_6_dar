@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function Menyu() {
   return (
-    <div className="bg-[#fbfbfb]  h-[100vh] flex flex-col items-center">
+    <div className="bg-[#fbfbfb]  h-[100vh] flex flex-col items-center drop-shadow-xl">
       <Link className="py-[20px] px-[15px]">
         <svg
           width="64"

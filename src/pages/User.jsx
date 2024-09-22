@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import asosiyRasm from "../img/asosiy.png";
 import profilRasm from "../img/profil.png";
 
