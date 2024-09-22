@@ -88,7 +88,7 @@ const AboutUser = () => {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="mt-1 block w-full px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                  className="mt-1 block w-full bg-[#0000] px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 />
               </div>
               </div>
@@ -101,7 +101,7 @@ const AboutUser = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 block w-full px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                  className="mt-1 block w-full bg-[#0000] px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ const AboutUser = () => {
                 type="text"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="mt-1 block w-full px-4 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                className="mt-1 block w-full bg-[#0000] px-4 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
               />
             </div>
           </form>

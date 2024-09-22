@@ -1,4 +1,8 @@
+
 import React, { useState, useEffect } from "react";
+
+
+
 import {
   Plus,
   X,
@@ -25,6 +29,18 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
     medium: "bg-yellow-500",
     high: "bg-red-500",
   };
+  useEffect(() => {
+    window.$crisp = []; 
+    window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a"; 
+    (function () {
+      const d = document;
+      const s = d.createElement("script");
+      s.src = "https://client.crisp.chat/l.js";
+      s.async = true;
+      d.getElementsByTagName("head")[0].appendChild(s); 
+    })();
+  }, []);
+
 
  
 
