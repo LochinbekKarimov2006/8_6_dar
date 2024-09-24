@@ -76,7 +76,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="/user" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/1" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"
@@ -90,7 +90,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="/user" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/2" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"
@@ -104,7 +104,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="/user" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/1" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"
@@ -118,7 +118,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="/user" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/1" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"
