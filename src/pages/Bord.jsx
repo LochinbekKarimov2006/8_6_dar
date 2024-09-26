@@ -1,9 +1,11 @@
 import React from 'react'
+import BordYaratish from '../components/BordYaratish'
 
 function Bord() {
+  
   return (
-    <div>Bord</div>
-  )
+    <div>
+      <BordYaratish/>
+    </div>)
 }
-
 export default Bord

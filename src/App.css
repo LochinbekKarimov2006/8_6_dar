@@ -17,6 +17,19 @@
 .link{
   transition: all .5s ease;
 }
-body{
-  background-color: #fff;
+.div-1{
+  display: grid;
+  grid-template-columns: 32% 32% 32% ;
+  gap: 7px;
+  justify-content: space-between;
+}
+.div-1 button img{
+height: 70px;
+width: 100%;
+border-radius: 5px;
+}
+.div-1 button{
+  height: 70px;
+  border-radius: 5px;
+ 
 }
