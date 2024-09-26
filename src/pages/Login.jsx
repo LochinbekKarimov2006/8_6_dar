@@ -47,7 +47,7 @@ const Login = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "http://trello.vimlc.uz:8000/api/auth/login",
+          "http://trello.vimlc.uz/api/auth/login",
           formData,
           {
             headers: {
