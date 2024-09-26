@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
+import { MyContext } from "../context/useContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +13,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const { value, setValue } = useContext(MyContext);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -58,6 +59,8 @@ const Login = () => {
         console.log("Login successful:", response.data);
 
         if (response.data.token) {
+          setValue(response.data.token)
+          console.log(response.data.token);
           localStorage.setItem("token", response.data.token);
           console.log("Token saved to localStorage");
         } else {
@@ -143,7 +146,7 @@ const Login = () => {
 
       <p className="mt-4 text-center text-sm text-gray-600">
         Don't have an account?{" "}
-        <Link to="/register" className="text-blue-500">
+        <Link to="/sigin" className="text-blue-500">
           REGISTER
         </Link>
       </p>
