@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 function Menyu() {
+  
   return (
     <div className="bg-base-100 px-6  h-[100vh] flex flex-col items-center drop-shadow-xl">
      
