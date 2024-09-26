@@ -13,9 +13,13 @@ import Register from './pages/Register';
 import { MyContext } from './context/useContext';
 
 function App() {
-  const [data, setData] = useState(true);
+  const [data, setData] = useState(false);
   const [user,setUser]=useState(null)
   const { value, setValue } = useContext(MyContext);
+  const datas=localStorage.getItem("token")
+ if(datas){
+  setValue(datas)
+ }
   useEffect(()=>{
     setUser(value)
   },[value])
@@ -23,7 +27,7 @@ function App() {
     {
       path: '/',
       element:<Provayder user={user}>
-        data ? <MainLayout /> : <MainLeaut2 />,
+        {data ? <MainLayout /> : <MainLeaut2 />}
       </Provayder>,
       children: [
         {
