@@ -10,12 +10,10 @@ import Data from "./pages/Data";
 import Data2 from "./pages/Data2";
 import Bord from "./pages/Bord";
 
-// Foydalanuvchi autentifikatsiya qilinganligini tekshiradigan funksiya
 const isAuthenticated = () => {
   return localStorage.getItem("token") !== null;
 };
 
-// PrivateRoute komponenti, faqat autentifikatsiya qilingan foydalanuvchilarga ko'rsatiladi
 const PrivateRoute = ({ element }) => {
   return isAuthenticated() ? element : <Navigate to="/login" />;
 };
