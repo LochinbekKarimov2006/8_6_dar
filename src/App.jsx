@@ -3,36 +3,37 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import MainLayout from './layout/MainLayout'
 import Home from './pages/Home'
 import AboutUser from './pages/User'
-import Data from './pages/Data'
-import Data2 from './pages/Data2'
-import Bord from './pages/Bord'
 import MainLeaut2 from './layout/MainLeaut2'
 import Qoshish from './pages/Qoshish'
+import MainLayout from "./layout/MainLayout";
+import Home from "./pages/Home";
+import AboutUser from "./pages/User";
+import ErrorPage from "./pages/ErrorPage";
+import Data from "./pages/Data";
+import Data2 from "./pages/Data2";
 function App() {
   const [data,setData]=useState(false)
-  const router=createBrowserRouter([
+  const router = createBrowserRouter([
     {
-      path:"/",
-      element:<MainLayout/>,
-      children:[
+      path: "/",
+      element: <MainLayout />,
+      errorElement: <ErrorPage />,
+      children: [
         {
-          path:"/",
-          element:<Home/>
+          path: "/",
+          element: <PrivateRoute element={<Home />} />,
         },
         {
-          path:"/user",
-          element:<Data/>
-
+          path: "/user",
+          element: <PrivateRoute element={<AboutUser />} />,
         },
         {
-          path:"/1",
-          element:<Data2/>
-
+          path: "/data",
+          element: <PrivateRoute element={<Data />} />,
         },
         {
-          path:"/2",
-          element:<Bord/>
-
+          path: "/data2",
+          element: <PrivateRoute element={<Data2 />} />,
         },
       ]
     }
@@ -55,6 +56,7 @@ function App() {
     {!data&&<RouterProvider router={router2}/>}
     </>
   )
+       
 }
 
-export default App
+export default App;
