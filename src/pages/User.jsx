@@ -77,7 +77,7 @@ const AboutUser = () => {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="mt-1 block w-full px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                  className="mt-1 block w-full bg-[#0000] px-6 py-4 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 />
               </div>
               <div className="w-[48%]">
