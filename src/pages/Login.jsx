@@ -7,7 +7,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    
     password: "",
   });
   const [errors, setErrors] = useState({});
@@ -48,7 +47,7 @@ const Login = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "http://trello.vimlc.uz:8000/api/auth/login",
+          "https://trello.vimlc.uz/api/auth/login",
           formData,
           {
             headers: {
