@@ -248,7 +248,6 @@ function Home() {
   const closeCardModal = () => {
     setSelectedCard(null);
   };
-
   const updateCard = (updatedCard) => {
     const updatedLists = lists.map((list) => ({
       ...list,
