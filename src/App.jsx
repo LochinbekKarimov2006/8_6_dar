@@ -1,62 +1,43 @@
-import React, { useState } from 'react'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import MainLayout from './layout/MainLayout'
-import Home from './pages/Home'
-import AboutUser from './pages/User'
-import MainLeaut2 from './layout/MainLeaut2'
-import Qoshish from './pages/Qoshish'
-import MainLayout from "./layout/MainLayout";
-import Home from "./pages/Home";
-import AboutUser from "./pages/User";
-import ErrorPage from "./pages/ErrorPage";
-import Data from "./pages/Data";
-import Data2 from "./pages/Data2";
+import React, { useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MainLayout from './layout/MainLayout';
+import MainLeaut2 from './layout/MainLeaut2';
+import Home from './pages/Home';
+import AboutUser from './pages/User';
+import Data from './pages/Data';
+import Data2 from './pages/Data2';
+import Qoshish from './pages/Qoshish';
+
 function App() {
-  const [data,setData]=useState(false)
+  const [data, setData] = useState(false);
+
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <MainLayout />,
-      errorElement: <ErrorPage />,
+      path: '/',
+      element: data ? <MainLayout /> : <MainLeaut2 />,
       children: [
         {
-          path: "/",
-          element: <PrivateRoute element={<Home />} />,
+          path: '/',
+          element: data ? <Home /> : <Qoshish />,
         },
         {
-          path: "/user",
-          element: <PrivateRoute element={<AboutUser />} />,
+          path: '/user',
+          element: <AboutUser />,
         },
         {
-          path: "/data",
-          element: <PrivateRoute element={<Data />} />,
+          path: '/data',
+          element: <Data />,
         },
         {
-          path: "/data2",
-          element: <PrivateRoute element={<Data2 />} />,
+          path: '/data2',
+          element: <Data2 />,
         },
-      ]
-    }
-  ])
-  const router2=createBrowserRouter([
-    {
-      path:"/",
-      element:<MainLeaut2/>,
-      children:[
-        {
-          path:"/",
-          element:<Qoshish/>
-        }
-      ]
-    }
-  ])
-  return (
-    <>
-    {data&&<RouterProvider router={router}/>}
-    {!data&&<RouterProvider router={router2}/>}
-    </>
-  )
-       
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
+
