@@ -5,11 +5,11 @@ import Menyu from '../components/Menyu'
 
 function MainLayout() {
   return (
-    <div className='flex h-[100vh] '>
-        <Menyu/>
-         <div className='w-[100%]'>
+    <div className='flex flex-col  '>
            <Navbar/>
-           <div className='overflow-y-auto h-[91vh]'>
+         <div className='w-[100%] flex'>
+        <Menyu/>
+           <div className='overflow-y-auto h-[91vh] w-full'>
            <Outlet/>
            </div>
          </div>
