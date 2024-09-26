@@ -17,3 +17,6 @@
 .link{
   transition: all .5s ease;
 }
+body{
+  background-color: #fff;
+}
