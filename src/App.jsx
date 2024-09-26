@@ -13,7 +13,7 @@ import Register from './pages/Register';
 import { MyContext } from './context/useContext';
 
 function App() {
-  const [data, setData] = useState(false);
+  const [data, setData] = useState(true);
   const [user,setUser]=useState(null)
   const { value, setValue } = useContext(MyContext);
   const datas=localStorage.getItem("token")
