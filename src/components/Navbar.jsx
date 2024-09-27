@@ -15,8 +15,9 @@ useEffect(()=>{
     localStorage.setItem('rejim',rejim)
 },[rejim])
   return (
-    <div className=" w-[100%] h-[76px] bg-base-300 flex justify-between items-center drop-shadow-xl">
-       <Link className="py-[20px] px-[15px]">
+
+    <div className=" w-[100%] h-[76px] bg-base-100 flex justify-between items-center drop-shadow-xl">
+      <Link className="py-[20px] px-[15px]">
         <svg
           width="64"
           height="61"
@@ -108,12 +109,11 @@ useEffect(()=>{
         </button>
         <button>
           <Link to="/user">
-
-          <div className="avatar">
-            <div className="ring-primary ring-offset-base-100 w-7 rounded-full ring ring-offset-2">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <div className="avatar">
+              <div className="ring-primary ring-offset-base-100 w-7 rounded-full ring ring-offset-2">
+                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              </div>
             </div>
-          </div>
           </Link>
         </button>
         <button>

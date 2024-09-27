@@ -11,6 +11,8 @@ import Provayder from './components/Provayder';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { MyContext } from './context/useContext';
+import Data3 from './pages/Data3';
+import Data4 from './pages/Data4';
 
 function App() {
   const [data, setData] = useState(true);
@@ -46,6 +48,14 @@ function App() {
           path: '/data2',
           element: <Data2 />,
         },
+        {
+          path:"/data3",
+          element:<Data3/>
+        },
+        {
+          path:"/data4",
+          element:<Data4/>
+        }
       ],
     },
     {

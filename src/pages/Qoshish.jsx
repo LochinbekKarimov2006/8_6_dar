@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/useContext";
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
 function Qoshish() {
   const [ochish, setYopish] = useState(false);
   const [colors, setColor] = useState(false);
@@ -15,12 +15,12 @@ function Qoshish() {
   const { value, setValue } = useContext(MyContext);
   function imagests() {
     if (bg_images.includes("/")) {
-      setImagest(bg_images); // Agar bg_images manzil bo'lsa, imagest ga saqlanadi
-      setColorse(null); // colorse ni tozalaymiz
+      setImagest(bg_images); 
+      setColorse(null);
       console.log("Image detected");
     } else {
-      setColorse(bg_images); // Agar rang bo'lsa, colorse ga saqlanadi
-      setImagest(null); // imagest ni tozalaymiz
+      setColorse(bg_images);
+      setImagest(null);
       console.log("Color detected");
     }
   }
@@ -617,6 +617,7 @@ function Qoshish() {
                                   alt=""
                                 />
                               </button>
+
                             </div>
                             <div className="border-b-[1px] border-[#f0f0f04b] py-2"></div>
                             <div className="div-1 mt-4">
@@ -902,32 +903,31 @@ function Qoshish() {
           </div>
         )}
       </div>
-        {colors && (
-          <div
-            onClick={() => {
-              setColor(false);
-            }}
-            className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000000] z-10"
-          ></div>
-        )}
-        {images && (
-          <div
-            onClick={() => {
-              setImages(false);
-            }}
-            className="absolute z-20 top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
-          ></div>
-        )}
-        {bg_color && (
-          <div
-            onClick={() => {
-              SetBg_Coloes(false);
-            }}
-            className="absolute z-[25] top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
-          ></div>
-        )}
+      {colors && (
+        <div
+          onClick={() => {
+            setColor(false);
+          }}
+          className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000000] z-10"
+        ></div>
+      )}
+      {images && (
+        <div
+          onClick={() => {
+            setImages(false);
+          }}
+          className="absolute z-20 top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
+        ></div>
+      )}
+      {bg_color && (
+        <div
+          onClick={() => {
+            SetBg_Coloes(false);
+          }}
+          className="absolute z-[25] top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
+        ></div>
+      )}
     </>
   );
 }
-
 export default Qoshish;
