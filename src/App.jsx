@@ -15,13 +15,18 @@ import Data3 from './pages/Data3';
 import Data4 from './pages/Data4';
 
 function App() {
-  const [data, setData] = useState(true);
+  const [data, setData] = useState(false);
   const [user,setUser]=useState(null)
-  const { value, setValue } = useContext(MyContext);
+  const { value, setValue,users } = useContext(MyContext);
   const datas=localStorage.getItem("token")
  if(datas){
   setValue(datas)
  }
+ useEffect(()=>{
+if(users){
+  setData(true)
+}
+ },[users])
   useEffect(()=>{
     setUser(value)
   },[value])

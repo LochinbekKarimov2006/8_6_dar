@@ -10,9 +10,11 @@ function Qoshish() {
   const [bg_images, setBg_images] = useState("#fff");
   const [imagest, setImagest] = useState(null);
   const [colorse, setColorse] = useState(null);
-  const [malumod,setMalumod]=useState([])
+  const [malumod,setMalumod]=useState()
+  const [malumod2,setMalumod2]=useState()
   const[name,setName]=useState("")
-  const { value, setValue } = useContext(MyContext);
+  const { value, setValue,users,setUsers } = useContext(MyContext);
+  console.log(malumod2)
   function imagests() {
     if (bg_images.includes("/")) {
       setImagest(bg_images); 
@@ -59,26 +61,21 @@ function Qoshish() {
       setYopish(true);
     }
   }
-  function Yaratish(){
+ function Yaratish() {
     setYopish(false);
-    let yaratish = {
-      "name": name,  // O'zgaruvchini string formatiga o'girish shart emas
-      "description": text,
-      "color": "red"
-    };
-    let datas={
-      name,
-      text,
-      bg_images
+    
+    let yaratish={
+    "name": name,
+  "description": text,
+  "color": "red"
     }
-    setMalumod([...malumod,datas])
     fetch("https://trello.vimlc.uz/api/boards/create", {
-      method: "POST", // To'g'ri method
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${value}` // To'g'ri Authorization
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${value}`
       },
-      body: JSON.stringify(yaratish) // To'g'ri JSON format
+      body: JSON.stringify(yaratish)
     })
     .then(response => response.json())
     .then(data => {
@@ -88,27 +85,28 @@ function Qoshish() {
       console.log(err);
     });
 
-
-    
-  }
-  function olish(){
-    fetch("https://trello.vimlc.uz/api/boards/create", {
-      method: "GET", // To'g'ri method
+    fetch("https://trello.vimlc.uz/api/boards/my-boards", {
+      method: "GET",
       headers: {
-        "Authorization": `Bearer ${value}` // To'g'ri Authorization
+        "Authorization": `Bearer ${value}`
       }
     })
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    .then(datasa => {
+      setMalumod2(datasa.boards)
+      console.log(datasa);
     })
     .catch(err => {
       console.log(err);
     });
-  }
+ }
+ function Users(e){
+  setUsers(e)
+ }
+ console.log(malumod2);
   return (
     <>
-      <div className="relative bg-base-100">
+      <div className="relative bg-base-100 pb-10">
       <div className="max-w-[1280px] mx-auto mt-10">
   <div>
     <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
@@ -130,7 +128,7 @@ function Qoshish() {
       Sizning ish joyingiz
     </h3>
     <div className="text-[22px] tracking-wider flex gap-4 mt-5">
-      <button onClick={()=>{olish()}} className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
+      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taqdimotlar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Ishtirokchilar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Sozlamalar</button>
@@ -145,16 +143,16 @@ function Qoshish() {
       </button>
     </div>
     <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
-      {malumod&&malumod.map((e,id)=>(
-      <button key={id}
+      {malumod2&&malumod2.map((e,id)=>(
+      <button key={e.id} onClick={()=>{Users(e)}}
       style={
-        e.bg_images.includes("/") ? {
-              backgroundImage: `url(${e.bg_images})`,
+        e.color.includes("/") ? {
+              backgroundImage: `url(${e.color})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundPositionX: "center",
-            }:{ backgroundColor: e.bg_images }
+            }:{ backgroundColor: e.color }
       } className="w-[230px] text-[18px] drop-shadow-lg text-white font-[600] h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]">
         {e.name}
       </button>
