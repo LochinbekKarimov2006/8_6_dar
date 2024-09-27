@@ -16,12 +16,12 @@ function Qoshish() {
 
   function imagests() {
     if (bg_images.includes("/")) {
-      setImagest(bg_images); // Agar bg_images manzil bo'lsa, imagest ga saqlanadi
-      setColorse(null); // colorse ni tozalaymiz
+      setImagest(bg_images); 
+      setColorse(null);
       console.log("Image detected");
     } else {
-      setColorse(bg_images); // Agar rang bo'lsa, colorse ga saqlanadi
-      setImagest(null); // imagest ni tozalaymiz
+      setColorse(bg_images);
+      setImagest(null);
       console.log("Color detected");
     }
   }
@@ -64,62 +64,68 @@ function Qoshish() {
   return (
     <>
       <div className="relative">
-      <div className="max-w-[1280px] mx-auto mt-10">
-  <div>
-    <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
-      <img
-        className="w-10"
-        src="https://cdn-icons-png.flaticon.com/512/7329/7329814.png"
-        alt=""
-      />
-      Yaqinda korilgan
-    </h3>
-    <div className="mt-5 tracking-widest">
-      <button className="w-[250px] h-[150px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-    </div>
-  </div>
+        <div className="max-w-[1280px] mx-auto mt-10">
+          <div>
+            <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
+              <img
+                className="w-10"
+                src="https://cdn-icons-png.flaticon.com/512/7329/7329814.png"
+                alt=""
+              />
+              Yaqinda korilgan
+            </h3>
+            <div className="mt-5 tracking-widest">
+              <button className="w-[250px] h-[150px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+            </div>
+          </div>
 
-  <div className="mt-14">
-    <h3 className="text-[32px] tracking-wider flex items-center font-[600] gap-3">
-      Sizning ish joyingiz
-    </h3>
-    <div className="text-[22px] tracking-wider flex gap-4 mt-5">
-      <button className="btn text-[22px] btn-neutral">Taxtalar</button>
-      <button className="btn text-[22px] btn-neutral">Taqdimotlar</button>
-      <button className="btn text-[22px] btn-neutral">Ishtirokchilar</button>
-      <button className="btn text-[22px] btn-neutral">Sozlamalar</button>
-      <button className="btn text-[22px] btn-neutral">Oshirish</button>
-      <button
-        onClick={() => {
-          Yopish();
-        }}
-        className="btn text-[22px] btn-neutral"
-      >
-        Taxta yaratish
-      </button>
-    </div>
+          <div className="mt-14">
+            <h3 className="text-[32px] tracking-wider flex items-center font-[600] gap-3">
+              Sizning ish joyingiz
+            </h3>
+            <div className="text-[22px] tracking-wider flex gap-4 mt-5">
+              <button className="btn text-[22px] btn-neutral">Taxtalar</button>
+              <button className="btn text-[22px] btn-neutral">
+                Taqdimotlar
+              </button>
+              <button className="btn text-[22px] btn-neutral">
+                Ishtirokchilar
+              </button>
+              <button className="btn text-[22px] btn-neutral">
+                Sozlamalar
+              </button>
+              <button className="btn text-[22px] btn-neutral">Oshirish</button>
+              <button
+                onClick={() => {
+                  Yopish();
+                }}
+                className="btn text-[22px] btn-neutral"
+              >
+                Taxta yaratish
+              </button>
+            </div>
 
-    <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
-      <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-      <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-      <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-      <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-      <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
-        Doska yaratish
-      </button>
-    </div>
-  </div>
-      </div>
+            <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
+              <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+              <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+              <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+              <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+              <button className="w-[230px] h-[130px] bordedr-[1px] bg-white rounded-[10px]">
+                Doska yaratish
+              </button>
+            </div>
+          </div>
+        </div>
 
         {ochish && (
           <div className="absolute  w-full flex justify-center top-[-20px] tracking-[1px]">
@@ -865,30 +871,30 @@ function Qoshish() {
           </div>
         )}
       </div>
-        {colors && (
-          <div
-            onClick={() => {
-              setColor(false);
-            }}
-            className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000000] z-10"
-          ></div>
-        )}
-        {images && (
-          <div
-            onClick={() => {
-              setImages(false);
-            }}
-            className="absolute z-20 top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
-          ></div>
-        )}
-        {bg_color && (
-          <div
-            onClick={() => {
-              SetBg_Coloes(false);
-            }}
-            className="absolute z-[25] top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
-          ></div>
-        )}
+      {colors && (
+        <div
+          onClick={() => {
+            setColor(false);
+          }}
+          className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000000] z-10"
+        ></div>
+      )}
+      {images && (
+        <div
+          onClick={() => {
+            setImages(false);
+          }}
+          className="absolute z-20 top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
+        ></div>
+      )}
+      {bg_color && (
+        <div
+          onClick={() => {
+            SetBg_Coloes(false);
+          }}
+          className="absolute z-[25] top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
+        ></div>
+      )}
     </>
   );
 }
