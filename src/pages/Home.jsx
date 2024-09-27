@@ -342,19 +342,19 @@ function Home() {
                   ))}
                   {provided.placeholder}
                   {currentList?.id === list.id && isAddingCard ? (
-                    <div className="mt-2">
+                    <div className="mt-2 bg-gray-700 p-4 rounded-lg shadow-md">
                       <input
                         type="text"
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                         placeholder="Enter card title..."
-                        className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                        className="w-full bg-gray-600 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 mb-3 transition-all duration-150"
                         autoFocus
                       />
                       <div className="flex justify-between items-center">
                         <button
                           onClick={handleAddCard}
-                          className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                          className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors duration-150 shadow-lg hover:shadow-blue-600/50"
                         >
                           Add card
                         </button>
@@ -363,7 +363,7 @@ function Home() {
                             setIsAddingCard(false);
                             setCardName("");
                           }}
-                          className="text-gray-400 hover:text-white"
+                          className="text-gray-300 hover:text-white transition-colors duration-150"
                         >
                           <X size={16} />
                         </button>
@@ -375,7 +375,7 @@ function Home() {
                         setCurrentList(list);
                         setIsAddingCard(true);
                       }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-white mt-2"
+                      className="flex items-center gap-2 text-gray-400 hover:text-white mt-2 bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg transition-all duration-150"
                     >
                       <Plus size={16} />
                       Add a card
