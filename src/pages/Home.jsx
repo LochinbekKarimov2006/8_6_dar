@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+щ , [27.09.2024 15:17]
+.import React, { useState, useEffect } from "react";
 import {
   Plus,
   X,
@@ -10,7 +11,7 @@ import {
 } from "lucide-react";
 
 const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
-  const [description, setDescription] = useState(card.description || "");
+  const [description, setDescription] = useState(card.description  "");
   const [showMembers, setShowMembers] = useState(false);
   const [showLabels, setShowLabels] = useState(false);
   const [showDates, setShowDates] = useState(false);
@@ -102,7 +103,10 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
                     />
                     <div
-                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
+                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg
+
+щ , [27.09.2024 15:17]
+-gray-500"
                       onClick={() => updateCard({ assignee: "SW" })}
                     >
                       <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
@@ -160,7 +164,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                     <input
                       type="date"
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
-                      value={card.dueDate || ""}
+                      value={card.dueDate  ""}
                       onChange={(e) => updateCard({ dueDate: e.target.value })}
                     />
                   </div>
@@ -197,6 +201,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+щ , [27.09.2024 15:17]
 function Home() {
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
@@ -303,12 +308,13 @@ function Home() {
     })();
   }, []);
 
-  return (
+щ , [27.09.2024 15:17]
+return (
     <div className="p-4 bg-gray-900 min-h-screen">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex space-x-4 overflow-x-auto">
           {lists.map((list) => (
-            <Droppable droppableId={`${list.id}`} key={list.id}>
+            <Droppable droppableId={${list.id}} key={list.id}>
               {(provided) => (
                 <div
                   ref={provided.innerRef}
@@ -324,7 +330,7 @@ function Home() {
                   {list.cards.map((card, index) => (
                     <Draggable
                       key={card.id}
-                      draggableId={`${card.id}`}
+                      draggableId={${card.id}}
                       index={index}
                     >
                       {(provided) => (
@@ -395,7 +401,9 @@ function Home() {
                 className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
                 autoFocus
               />
-              <div className="flex justify-between items-center">
+
+щ , [27.09.2024 15:17]
+<div className="flex justify-between items-center">
                 <button
                   onClick={handleAddList}
                   className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
