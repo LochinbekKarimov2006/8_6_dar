@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-
+щ , [27.09.2024 15:17]
+.import React, { useState, useEffect } from "react";
 import {
   Plus,
   X,
@@ -8,11 +8,10 @@ import {
   Calendar,
   Tag,
   Paperclip,
-  // Eye,
 } from "lucide-react";
 
 const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
-  const [description, setDescription] = useState(card.description || "");
+  const [description, setDescription] = useState(card.description  "");
   const [showMembers, setShowMembers] = useState(false);
   const [showLabels, setShowLabels] = useState(false);
   const [showDates, setShowDates] = useState(false);
@@ -26,20 +25,20 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
     medium: "bg-yellow-500",
     high: "bg-red-500",
   };
+
   useEffect(() => {
     window.$crisp = [];
     window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a";
-    (function () {
-      const d = document;
-      const s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })();
+    const d = document;
+    const s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = true;
+    d.getElementsByTagName("head")[0].appendChild(s);
   }, []);
+
   return (
-    <div className="fixed inset-0 bg-base-200 bg-opacity-50 flex items-center justify-center z-50">
-      <div className=" w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-white">{card.name}</h2>
@@ -104,7 +103,10 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
                     />
                     <div
-                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
+                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg
+
+щ , [27.09.2024 15:17]
+-gray-500"
                       onClick={() => updateCard({ assignee: "SW" })}
                     >
                       <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
@@ -162,7 +164,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                     <input
                       type="date"
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
-                      value={card.dueDate || ""}
+                      value={card.dueDate  ""}
                       onChange={(e) => updateCard({ dueDate: e.target.value })}
                     />
                   </div>
@@ -197,6 +199,9 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   );
 };
 
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+щ , [27.09.2024 15:17]
 function Home() {
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
@@ -259,6 +264,38 @@ function Home() {
     setLists(updatedLists);
     setSelectedCard(updatedCard);
   };
+
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) return;
+
+    const sourceListIndex = lists.findIndex(
+      (list) => list.id === parseInt(source.droppableId)
+    );
+    const destListIndex = lists.findIndex(
+      (list) => list.id === parseInt(destination.droppableId)
+    );
+
+    const sourceList = lists[sourceListIndex];
+    const destList = lists[destListIndex];
+    const draggedCard = sourceList.cards.find(
+      (card) => card.id === parseInt(draggableId)
+    );
+
+    // Remove the card from the source list
+    sourceList.cards.splice(source.index, 1);
+
+    // Add the card to the destination list
+    destList.cards.splice(destination.index, 0, draggedCard);
+
+    const updatedLists = [...lists];
+    updatedLists[sourceListIndex] = sourceList;
+    updatedLists[destListIndex] = destList;
+
+    setLists(updatedLists);
+  };
+
   useEffect(() => {
     window.$crisp = [];
     window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a";
@@ -270,109 +307,131 @@ function Home() {
       d.getElementsByTagName("head")[0].appendChild(s);
     })();
   }, []);
-  return (
-    <div className="p-4 bg-base-100 min-h-screen">
-      <div className="flex space-x-4 overflow-x-auto">
-        {lists.map((list) => (
-          <div
-            key={list.id}
-            className="bg-gray-800 p-2 rounded-md min-w-[250px]"
-          >
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-white font-medium">{list.name}</h3>
-              <button className="text-gray-400 hover:text-white">
-                <MoreHorizontal size={16} />
-              </button>
-            </div>
-            {list.cards.map((card) => (
-              <div
-                key={card.id}
-                className="bg-gray-700 p-2 rounded mb-2 text-white cursor-pointer hover:bg-gray-600"
-                onClick={() => openCardModal(card)}
-              >
-                {card.name}
-              </div>
-            ))}
-            {currentList?.id === list.id && isAddingCard ? (
-              <div className="mt-2">
-                <input
-                  type="text"
-                  value={cardName}
-                  onChange={(e) => setCardName(e.target.value)}
-                  placeholder="Enter card title..."
-                  className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
-                  autoFocus
-                />
-                <div className="flex justify-between items-center">
-                  <button
-                    onClick={handleAddCard}
-                    className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
-                  >
-                    Add card
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsAddingCard(false);
-                      setCardName("");
-                    }}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <X size={16} />
-                  </button>
+
+щ , [27.09.2024 15:17]
+return (
+    <div className="p-4 bg-gray-900 min-h-screen">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="flex space-x-4 overflow-x-auto">
+          {lists.map((list) => (
+            <Droppable droppableId={${list.id}} key={list.id}>
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="bg-gray-800 p-2 rounded-md min-w-[250px]"
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="text-white font-medium">{list.name}</h3>
+                    <button className="text-gray-400 hover:text-white">
+                      <MoreHorizontal size={16} />
+                    </button>
+                  </div>
+                  {list.cards.map((card, index) => (
+                    <Draggable
+                      key={card.id}
+                      draggableId={${card.id}}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="bg-gray-700 p-2 rounded mb-2 text-white cursor-pointer hover:bg-gray-600"
+                          onClick={() => openCardModal(card)}
+                        >
+                          {card.name}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                  {currentList?.id === list.id && isAddingCard ? (
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        value={cardName}
+                        onChange={(e) => setCardName(e.target.value)}
+                        placeholder="Enter card title..."
+                        className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                        autoFocus
+                      />
+                      <div className="flex justify-between items-center">
+                        <button
+                          onClick={handleAddCard}
+                          className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                        >
+                          Add card
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsAddingCard(false);
+                            setCardName("");
+                          }}
+                          className="text-gray-400 hover:text-white"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setCurrentList(list);
+                        setIsAddingCard(true);
+                      }}
+                      className="flex items-center gap-2 text-gray-400 hover:text-white mt-2"
+                    >
+                      <Plus size={16} />
+                      Add a card
+                    </button>
+                  )}
                 </div>
+              )}
+            </Droppable>
+          ))}
+          {isAddingList ? (
+            <div className="bg-gray-800 p-2 rounded-md min-w-[250px]">
+              <input
+                type="text"
+                value={listName}
+                onChange={(e) => setListName(e.target.value)}
+                placeholder="Enter list title..."
+                className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                autoFocus
+              />
+
+щ , [27.09.2024 15:17]
+<div className="flex justify-between items-center">
+                <button
+                  onClick={handleAddList}
+                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                >
+                  Add list
+                </button>
+                <button
+                  onClick={() => {
+                    setIsAddingList(false);
+                    setListName("");
+                  }}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X size={16} />
+                </button>
               </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setCurrentList(list);
-                  setIsAddingCard(true);
-                }}
-                className="flex items-center gap-2 text-gray-400 hover:text-white mt-2"
-              >
-                <Plus size={16} />
-                Add a card
-              </button>
-            )}
-          </div>
-        ))}
-        {isAddingList ? (
-          <div className="bg-gray-800 p-2 rounded-md min-w-[250px]">
-            <input
-              type="text"
-              value={listName}
-              onChange={(e) => setListName(e.target.value)}
-              placeholder="Enter list title..."
-              className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
-              autoFocus
-            />
-            <div className="flex justify-between items-center">
-              <button
-                onClick={handleAddList}
-                className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
-              >
-                Add list
-              </button>
-              <button
-                onClick={() => {
-                  setIsAddingList(false);
-                  setListName("");
-                }}
-                className="text-gray-400 hover:text-white"
-              >
-                <X size={16} />
-              </button>
             </div>
-          </div>
-        ) : (
-          <button
-            onClick={() => setIsAddingList(true)}
-            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
-          >
-            <Plus size={16} />
-            Add a list
-          </button>
-        )}
-      </div>
+          ) : (
+            <button
+              onClick={() => setIsAddingList(true)}
+              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
+            >
+              <Plus size={16} />
+              Add a list
+            </button>
+          )}
+        </div>
+      </DragDropContext>
 
       {selectedCard && (
         <TrelloLikeModal
