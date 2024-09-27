@@ -14,8 +14,8 @@ const AboutUser = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen flex items-center justify-center p-[30px]">
-      <div className="w-full bg-white shadow-xl rounded-lg overflow-hidden">
+    <div className="bg-base-200 min-h-screen flex items-center drop-shadow-lg justify-center m-[30px]">
+      <div className="w-full bg-base-200 shadow-xl rounded-lg overflow-hidden">
         <div className="relative h-72 bg-gradient-to-r from-blue-600 to-purple-400">
           <img
             className="absolute top-0 w-full h-full object-cover opacity-30"
