@@ -16,7 +16,7 @@ useEffect(()=>{
 },[rejim])
   return (
 
-    <div className=" w-[100%] h-[76px] bg-base-100 flex justify-between items-center drop-shadow-xl">
+    <div className=" w-[100%] h-[76px] bg-base-200 flex justify-between items-center drop-shadow-xl">
       <Link className="py-[20px] px-[15px]">
         <svg
           width="64"

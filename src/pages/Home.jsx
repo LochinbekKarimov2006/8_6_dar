@@ -39,8 +39,8 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-gray-800 w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-base-100 bg-opacity-50 flex items-center justify-center z-50">
+      <div className=" w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-white">{card.name}</h2>
@@ -272,7 +272,7 @@ function Home() {
     })();
   }, []);
   return (
-    <div className="p-4 bg-gray-900 min-h-screen">
+    <div className="p-4 bg-base-100 min-h-screen">
       <div className="flex space-x-4 overflow-x-auto">
         {lists.map((list) => (
           <div
