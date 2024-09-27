@@ -37,9 +37,8 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
       d.getElementsByTagName("head")[0].appendChild(s);
     })();
   }, []);
-
   return (
-    <div className="fixed inset-0 bg-base-100 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-base-200 bg-opacity-50 flex items-center justify-center z-50">
       <div className=" w-[768px] rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
