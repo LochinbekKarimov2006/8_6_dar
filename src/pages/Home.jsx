@@ -1,5 +1,6 @@
-щ , [27.09.2024 15:17]
-.import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import {
   Plus,
   X,
@@ -11,7 +12,7 @@ import {
 } from "lucide-react";
 
 const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
-  const [description, setDescription] = useState(card.description  "");
+  const [description, setDescription] = useState(card.description);
   const [showMembers, setShowMembers] = useState(false);
   const [showLabels, setShowLabels] = useState(false);
   const [showDates, setShowDates] = useState(false);
@@ -164,7 +165,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                     <input
                       type="date"
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
-                      value={card.dueDate  ""}
+                      value={card.dueDate}
                       onChange={(e) => updateCard({ dueDate: e.target.value })}
                     />
                   </div>
@@ -199,9 +200,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   );
 };
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-щ , [27.09.2024 15:17]
 function Home() {
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
@@ -308,13 +307,12 @@ function Home() {
     })();
   }, []);
 
-щ , [27.09.2024 15:17]
 return (
     <div className="p-4 bg-gray-900 min-h-screen">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex space-x-4 overflow-x-auto">
           {lists.map((list) => (
-            <Droppable droppableId={${list.id}} key={list.id}>
+            <Droppable droppableId={list.id} key={list.id}>
               {(provided) => (
                 <div
                   ref={provided.innerRef}
@@ -330,7 +328,7 @@ return (
                   {list.cards.map((card, index) => (
                     <Draggable
                       key={card.id}
-                      draggableId={${card.id}}
+                      draggableId={card.id}
                       index={index}
                     >
                       {(provided) => (
@@ -402,7 +400,6 @@ return (
                 autoFocus
               />
 
-щ , [27.09.2024 15:17]
 <div className="flex justify-between items-center">
                 <button
                   onClick={handleAddList}
