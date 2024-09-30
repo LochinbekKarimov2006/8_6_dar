@@ -8,15 +8,31 @@ import {
   Tag,
   Paperclip,
 } from "lucide-react";
+import axios from "axios";
 
 const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   const [description, setDescription] = useState(card.description || "");
   const [showMembers, setShowMembers] = useState(false);
   const [showLabels, setShowLabels] = useState(false);
   const [showDates, setShowDates] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); // New state for selected user
 
   const updateCard = (updates) => {
     onUpdate({ ...card, ...updates });
+  };
+
+  const assignUserToTask = async (userId) => {
+    try {
+      const response = await axios.post("https://trello.vimlc.uz/api/tasks/assign", {
+        task_id: card.id,
+        user_id: userId,
+      });
+      if (response.status === 200) {
+        updateCard({ assignee: userId });
+      }
+    } catch (error) {
+      console.error("Error assigning user:", error);
+    }
   };
 
   const priorityColors = {
@@ -41,10 +57,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-white">{card.name}</h2>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-white"
-            >
+            <button onClick={onClose} className="text-gray-400 hover:text-white">
               <X size={24} />
             </button>
           </div>
@@ -103,7 +116,10 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                     />
                     <div
                       className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
-                      onClick={() => updateCard({ assignee: "SW" })}
+                      onClick={() => {
+                        setSelectedUser("SW");
+                        assignUserToTask("SW");
+                      }}
                     >
                       <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
                         SW
@@ -161,7 +177,9 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       type="date"
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
                       value={card.dueDate || ""}
-                      onChange={(e) => updateCard({ dueDate: e.target.value })}
+                      onChange={(e) =>
+                        updateCard({ dueDate: e.target.value })
+                      }
                     />
                   </div>
                 )}
@@ -195,16 +213,29 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   );
 };
 
+
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+
 function Home() {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState(() => {
+    // Ma'lumotlarni localStorage'dan yuklab olish
+    const savedLists = localStorage.getItem("lists");
+    return savedLists ? JSON.parse(savedLists) : [];
+  });
   const [currentList, setCurrentList] = useState(null);
   const [isAddingList, setIsAddingList] = useState(false);
   const [listName, setListName] = useState("");
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [cardName, setCardName] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+  const [isEditingCard, setIsEditingCard] = useState(false);
+  const [editCardName, setEditCardName] = useState("");
+
+  // localStorage'ga saqlash
+  useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(lists));
+  }, [lists]);
 
   const handleAddList = () => {
     if (listName.trim()) {
@@ -260,9 +291,32 @@ function Home() {
     setSelectedCard(updatedCard);
   };
 
+  const startEditCard = (card) => {
+    setIsEditingCard(true);
+    setEditCardName(card.name);
+    setSelectedCard(card);
+  };
+
+  const handleEditCardName = () => {
+    const updatedLists = lists.map((list) =>
+      list.id === currentList.id
+        ? {
+            ...list,
+            cards: list.cards.map((card) =>
+              card.id === selectedCard.id
+                ? { ...card, name: editCardName }
+                : card
+            ),
+          }
+        : list
+    );
+    setLists(updatedLists);
+    setIsEditingCard(false);
+    setSelectedCard(null);
+  };
+
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
-
     if (!destination) return;
 
     const sourceListIndex = lists.findIndex(
@@ -278,10 +332,7 @@ function Home() {
       (card) => card.id === parseInt(draggableId)
     );
 
-    // Remove the card from the source list
     sourceList.cards.splice(source.index, 1);
-
-    // Add the card to the destination list
     destList.cards.splice(destination.index, 0, draggedCard);
 
     const updatedLists = [...lists];
@@ -333,9 +384,19 @@ function Home() {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           className="bg-gray-700 p-2 rounded mb-2 text-white cursor-pointer hover:bg-gray-600"
-                          onClick={() => openCardModal(card)}
+                          onClick={() => startEditCard(card)}
                         >
-                          {card.name}
+                          {isEditingCard && selectedCard?.id === card.id ? (
+                            <input
+                              type="text"
+                              value={editCardName}
+                              onChange={(e) => setEditCardName(e.target.value)}
+                              onBlur={handleEditCardName}
+                              className="w-full bg-gray-600 text-white px-2 py-1 rounded-md"
+                            />
+                          ) : (
+                            card.name
+                          )}
                         </div>
                       )}
                     </Draggable>
@@ -358,6 +419,7 @@ function Home() {
                         >
                           Add card
                         </button>
+
                         <button
                           onClick={() => {
                             setIsAddingCard(false);
@@ -392,34 +454,22 @@ function Home() {
                 value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 placeholder="Enter list title..."
-                className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm mb-3"
                 autoFocus
               />
-              <div className="flex justify-between items-center">
-                <button
-                  onClick={handleAddList}
-                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
-                >
-                  Add list
-                </button>
-                <button
-                  onClick={() => {
-                    setIsAddingList(false);
-                    setListName("");
-                  }}
-                  className="text-gray-400 hover:text-white"
-                >
-                  <X size={16} />
-                </button>
-              </div>
+              <button
+                onClick={handleAddList}
+                className="bg-blue-500 text-white rounded-lg px-3 py-1.5 text-sm font-semibold shadow-md hover:bg-blue-600 transition-all duration-150 w-full"
+              >
+                Add list
+              </button>
             </div>
           ) : (
             <button
               onClick={() => setIsAddingList(true)}
-              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
+              className="bg-gray-800 text-gray-400 hover:text-white rounded-md px-3 py-1.5 transition-all duration-150"
             >
-              <Plus size={16} />
-              Add a list
+              <Plus size={16} /> Add a list
             </button>
           )}
         </div>
@@ -427,9 +477,10 @@ function Home() {
 
       {selectedCard && (
         <TrelloLikeModal
-          card={selectedCard}
+          isOpen={Boolean(selectedCard)}
           onClose={closeCardModal}
-          onUpdate={updateCard}
+          card={selectedCard}
+          updateCard={updateCard}
         />
       )}
     </div>
