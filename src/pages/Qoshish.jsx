@@ -17,16 +17,13 @@ function Qoshish() {
   const[name,setName]=useState("")
   const { value, setValue,users,setUsers } = useContext(MyContext);
   const navigate = useNavigate();
-  console.log(malumod2)
   function imagests() {
     if (bg_images.includes("/")) {
       setImagest(bg_images); 
       setColorse(null);
-      console.log("Image detected");
     } else {
       setColorse(bg_images);
       setImagest(null);
-      console.log("Color detected");
     }
   }
   useEffect(() => {
@@ -34,10 +31,8 @@ function Qoshish() {
   }, [bg_images]);
   function color() {
     if (colors) {
-      console.log("salom");
       setColor(false);
     } else {
-      console.log("hayir");
       setColor(true);
     }
   }
@@ -50,10 +45,8 @@ function Qoshish() {
   }
   function image() {
     if (images) {
-      console.log("salom");
       setImages(false);
     } else {
-      console.log("hayir");
       setImages(true);
     }
   }
@@ -66,7 +59,6 @@ function Qoshish() {
   }
  function Yaratish() {
     setYopish(false);
-    
     let yaratish={
     "name": name,
   "description": text,
@@ -83,13 +75,11 @@ function Qoshish() {
     .then(response => response.json())
     .then(data => {
       toast.success("Muvaffaqiyat!")
-      console.log(data);
     })
     .catch(err => {
       toast.error("Xato!")
       console.log(err);
     });
-
     fetch("https://trello.vimlc.uz/api/boards/my-boards", {
       method: "GET",
       headers: {
@@ -100,7 +90,6 @@ function Qoshish() {
     .then(datasa => {
       localStorage.setItem("data",JSON.stringify(datasa.boards))
       setMalumod2(datasa.boards)
-      console.log(datasa);
     })
     .catch(err => {
       console.log(err);
@@ -111,8 +100,6 @@ function Qoshish() {
   setUsers(e)
   
  }
- console.log(malumod2);
- onsole.log(malumod2);
  let data=JSON.parse(localStorage.getItem("data"))
  function  malumodlarn(){
   setUsers("salom")

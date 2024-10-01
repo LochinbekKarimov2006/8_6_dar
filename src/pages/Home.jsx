@@ -104,10 +104,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
                     />
                     <div
-                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg
-
-щ , [27.09.2024 15:17]
--gray-500"
+                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
                       onClick={() => updateCard({ assignee: "SW" })}
                     >
                       <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
