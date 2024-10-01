@@ -100,8 +100,18 @@ function Qoshish() {
   setUsers(e)
   
  }
- let data=JSON.parse(localStorage.getItem("data"))
- 
+ let data = localStorage.getItem("data");
+
+if (data) {
+    try {
+        data = JSON.parse(data);
+        console.log(data); 
+    } catch (error) {
+        console.error("JSON parse error:", error);
+    }
+} else {
+    console.warn("No data found in localStorage");
+}
   return (
     <>
       <div className="relative bg-base-100 m-10">
