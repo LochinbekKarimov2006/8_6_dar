@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
-import MainLeaut2 from './layout/MainLeaut2';
 import Home from './pages/Home';
 import AboutUser from './pages/User';
 import Data from './pages/Data';
@@ -15,31 +14,35 @@ import Data3 from './pages/Data3';
 import Data4 from './pages/Data4';
 
 function App() {
-  const [data, setData] = useState(false);
-  const [user,setUser]=useState(null)
-  const { value, setValue,users } = useContext(MyContext);
-  const datas=localStorage.getItem("token")
- if(datas){
-  setValue(datas)
- }
- useEffect(()=>{
-if(users){
-  setData(true)
-}
- },[users])
-  useEffect(()=>{
-    setUser(value)
-  },[value])
+  const [user, setUser] = useState(null);
+  const { value, setValue } = useContext(MyContext);
+  const datas=localStorage.getItem('data')
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setValue(token);  // Tokenni contextga saqlash
+    }
+  }, [setValue]);
+  useEffect(() => {
+    setUser(value); 
+  }, [value]);
   const router = createBrowserRouter([
     {
       path: '/',
-      element:<Provayder user={user}>
-        {data ? <MainLayout /> : <MainLeaut2 />}
-      </Provayder>,
+      element: (
+        <Provayder user={user}>
+          { <MainLayout /> }
+        </Provayder>
+      ),
       children: [
         {
-          path: '/',
-          element: data ? <Home /> : <Qoshish />,
+          path:"/",
+          element:<Qoshish/>
+        },
+        {
+          path: '/home',
+          element:<Home />,
         },
         {
           path: '/user',
@@ -54,22 +57,22 @@ if(users){
           element: <Data2 />,
         },
         {
-          path:"/data3",
-          element:<Data3/>
+          path: '/data3',
+          element: <Data3 />,
         },
         {
-          path:"/data4",
-          element:<Data4/>
+          path: '/data4',
+          element: <Data4 />,
         }
       ],
     },
     {
-      path:"/login",
-      element :user?<Navigate to="/"/>:<Login/>
+      path: '/login',
+      element: user ? <Navigate to="/" /> : <Login />,
     },
     {
-      path:"/sigin",
-      element:user?<Navigate to="/"/>:<Register/>
+      path: '/sigin',
+      element: user ? <Navigate to="/" /> : <Register />,
     }
   ]);
 
@@ -77,4 +80,3 @@ if(users){
 }
 
 export default App;
-
