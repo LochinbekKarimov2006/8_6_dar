@@ -199,7 +199,6 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
 };
 
 
-
 function Home() {
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
@@ -260,7 +259,7 @@ function Home() {
       ),
     }));
     setLists(updatedLists);
-    setSelectedCard(null); // Kartani yangilagandan so'ng, modalni yopamiz
+    setSelectedCard(updatedCard);
   };
 
   const onDragEnd = (result) => {
@@ -330,7 +329,7 @@ function Home() {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           className="bg-gray-700 p-3 rounded-md mb-2 cursor-pointer text-white"
-                          onClick={() => openCardModal(card)} // Modalni ochish
+                          onClick={() => openCardModal(card)}
                         >
                           {card.name}
                         </div>
