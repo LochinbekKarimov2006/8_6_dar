@@ -100,7 +100,8 @@ function Qoshish() {
   setUsers(e)
   
  }
- let data = localStorage.getItem("data");
+ let data = localStorage.getItem("data")||[];
+ 
 
 if (data) {
     try {
