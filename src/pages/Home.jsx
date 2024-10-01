@@ -213,7 +213,7 @@ function Home() {
   const [cardName, setCardName] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [isEditingList, setIsEditingList] = useState(null); 
-  const [editListName, setEditListName] = useState(""); // Tahrirlangan nomni saqlash uchun
+  const [editListName, setEditListName] = useState(""); 
 
   const handleAddList = () => {
     if (listName.trim()) {
@@ -264,18 +264,22 @@ function Home() {
     }
   };
    
+  
   const handleDeleteCard = (listId, cardId) => {
-  const updatedLists = lists.map((list) => {
-    if (list.id === listId) {
-      return {
-        ...list,
-        cards: list.cards.filter((card) => card.id !== cardId),
-      };
+    const confirmDelete = window.confirm("Ushbu kartani o'chirmoqchimisiz?");
+    if (confirmDelete) {
+      const updatedLists = lists.map((list) => {
+        if (list.id === listId) {
+          return {
+            ...list,
+            cards: list.cards.filter((card) => card.id !== cardId),
+          };
+        }
+        return list;
+      });
+      setLists(updatedLists);
     }
-    return list;
-  });
-  setLists(updatedLists);
-};
+  };
 
 
   const openCardModal = (card) => {
@@ -326,6 +330,7 @@ function Home() {
     setLists(updatedLists);
   };
 
+  
   return (
     <div className="p-6 min-h-screen bg-gray-900">
       <div className="flex justify-between items-center mb-6">
@@ -383,10 +388,21 @@ function Home() {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className="bg-gray-700 p-3 rounded-md mb-2 cursor-pointer text-white"
+                          className="bg-gray-700 p-3 rounded-md mb-2 cursor-pointer text-white flex justify-between items-center"
                           onClick={() => openCardModal(card)}
                         >
-                          {card.name}
+                          <span>{card.name}</span>
+                          <div className="flex items-center">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteCard(list.id, card.id);
+                              }}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </div>
                       )}
                     </Draggable>
@@ -407,7 +423,7 @@ function Home() {
                           onClick={handleAddCard}
                           className="bg-gray-400 text-black rounded-md px-16 py-2 text-sm font-medium"
                         >
-                         Add card ➕
+                          Add card ➕
                         </button>
                         <button
                           onClick={() => {
