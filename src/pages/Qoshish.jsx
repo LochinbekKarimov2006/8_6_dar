@@ -102,12 +102,10 @@ function Qoshish() {
  }
  let data = localStorage.getItem("data");
 
-// Ma'lumot mavjudligini tekshirish
 if (data) {
-    // JSON.parse orqali parchalaymiz
     try {
         data = JSON.parse(data);
-        console.log(data); // Parchalanib olingan ma'lumotni chiqarish
+        console.log(data); 
     } catch (error) {
         console.error("JSON parse error:", error);
     }
