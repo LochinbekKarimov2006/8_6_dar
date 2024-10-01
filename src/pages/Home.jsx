@@ -16,6 +16,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
   const [showMembers, setShowMembers] = useState(false);
   const [showLabels, setShowLabels] = useState(false);
   const [showDates, setShowDates] = useState(false);
+  const doska = JSON.parse(localStorage.getItem("Users"));
 
   const updateCard = (updates) => {
     onUpdate({ ...card, ...updates });
@@ -104,10 +105,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       className="w-full bg-gray-600 text-white rounded p-1 mb-2"
                     />
                     <div
-                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg
-
-щ , [27.09.2024 15:17]
--gray-500"
+                      className="flex items-center bg-gray-600 p-1 rounded cursor-pointer hover:bg-gray-500"
                       onClick={() => updateCard({ assignee: "SW" })}
                     >
                       <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
@@ -201,6 +199,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
 };
 
 
+
 function Home() {
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
@@ -261,7 +260,7 @@ function Home() {
       ),
     }));
     setLists(updatedLists);
-    setSelectedCard(updatedCard);
+    setSelectedCard(null); // Kartani yangilagandan so'ng, modalni yopamiz
   };
 
   const onDragEnd = (result) => {
@@ -282,10 +281,10 @@ function Home() {
       (card) => card.id === parseInt(draggableId)
     );
 
-    // Remove the card from the source list
+    // Kartani manba ro'yxatdan olib tashlash
     sourceList.cards.splice(source.index, 1);
 
-    // Add the card to the destination list
+    // Kartani manzil ro'yxatiga qo'shish
     destList.cards.splice(destination.index, 0, draggedCard);
 
     const updatedLists = [...lists];
@@ -295,40 +294,34 @@ function Home() {
     setLists(updatedLists);
   };
 
-  useEffect(() => {
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "429c535a-81c8-4327-bff2-82cb8221f90a";
-    (function () {
-      const d = document;
-      const s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = true;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })();
-  }, []);
+  return (
+    <div className="p-6 min-h-screen bg-gray-900">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-4xl font-bold text-white">Trello Like App</h1>
+      </div>
 
-return (
-    <div className="p-4 bg-gray-900 min-h-screen">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex space-x-4 overflow-x-auto">
+        <div className="flex space-x-6 overflow-x-auto">
           {lists.map((list) => (
-            <Droppable droppableId={list.id} key={list.id}>
+            <Droppable droppableId={list.id.toString()} key={list.id}>
               {(provided) => (
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="bg-gray-800 p-2 rounded-md min-w-[250px]"
+                  className="bg-gray-800 p-5 rounded-lg shadow-md w-72"
                 >
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-white font-medium">{list.name}</h3>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-semibold text-lg text-white">
+                      {list.name}
+                    </h3>
                     <button className="text-gray-400 hover:text-white">
-                      <MoreHorizontal size={16} />
+                      <MoreHorizontal size={20} />
                     </button>
                   </div>
                   {list.cards.map((card, index) => (
                     <Draggable
                       key={card.id}
-                      draggableId={card.id}
+                      draggableId={card.id.toString()}
                       index={index}
                     >
                       {(provided) => (
@@ -336,8 +329,8 @@ return (
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className="bg-gray-700 p-2 rounded mb-2 text-white cursor-pointer hover:bg-gray-600"
-                          onClick={() => openCardModal(card)}
+                          className="bg-gray-700 p-3 rounded-md mb-2 cursor-pointer text-white"
+                          onClick={() => openCardModal(card)} // Modalni ochish
                         >
                           {card.name}
                         </div>
@@ -346,19 +339,19 @@ return (
                   ))}
                   {provided.placeholder}
                   {currentList?.id === list.id && isAddingCard ? (
-                    <div className="mt-2">
+                    <div className="mt-3">
                       <input
                         type="text"
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                         placeholder="Enter card title..."
-                        className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                        className="w-full rounded-md px-3 py-2 mb-2 focus:outline-none bg-gray-600 text-white"
                         autoFocus
                       />
                       <div className="flex justify-between items-center">
                         <button
                           onClick={handleAddCard}
-                          className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                          className="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium"
                         >
                           Add card
                         </button>
@@ -369,7 +362,7 @@ return (
                           }}
                           className="text-gray-400 hover:text-white"
                         >
-                          <X size={16} />
+                          <X size={20} />
                         </button>
                       </div>
                     </div>
@@ -381,7 +374,7 @@ return (
                       }}
                       className="flex items-center gap-2 text-gray-400 hover:text-white mt-2"
                     >
-                      <Plus size={16} />
+                      <Plus size={20} />
                       Add a card
                     </button>
                   )}
@@ -390,20 +383,19 @@ return (
             </Droppable>
           ))}
           {isAddingList ? (
-            <div className="bg-gray-800 p-2 rounded-md min-w-[250px]">
+            <div className="bg-gray-800 p-5 rounded-lg shadow-md w-72">
               <input
                 type="text"
                 value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 placeholder="Enter list title..."
-                className="w-full bg-gray-700 text-white rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                className="w-full rounded-md px-3 py-2 mb-2 focus:outline-none bg-gray-600 text-white"
                 autoFocus
               />
-
-<div className="flex justify-between items-center">
+              <div className="flex justify-between items-center">
                 <button
                   onClick={handleAddList}
-                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
+                  className="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
                   Add list
                 </button>
@@ -414,17 +406,17 @@ return (
                   }}
                   className="text-gray-400 hover:text-white"
                 >
-                  <X size={16} />
+                  <X size={20} />
                 </button>
               </div>
             </div>
           ) : (
             <button
               onClick={() => setIsAddingList(true)}
-              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
+              className="flex items-center gap-2 rounded-md px-4 py-2 border-2 border-gray-700 hover:bg-gray-600"
             >
-              <Plus size={16} />
-              Add a list
+              <Plus size={20} className="text-white" />
+              <span className="text-white">Add another list</span>
             </button>
           )}
         </div>
