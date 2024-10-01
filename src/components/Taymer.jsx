@@ -13,9 +13,7 @@ function App() {
         setIsLoggedIn(false); // Foydalanuvchini chiqaring
         localStorage.removeItem('token'); // Tokenni o'chirish
         setValue(null); // Contextni yangilang
-      }, 3600000); // 1 soat
-
-      // Component o'chirilganda taymerni to'xtatish
+      }, 1800000);
       return () => clearTimeout(timeout);
     }
   }, [isLoggedIn, setValue]);

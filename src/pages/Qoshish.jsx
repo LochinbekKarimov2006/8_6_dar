@@ -12,7 +12,6 @@ function Qoshish() {
   const [bg_images, setBg_images] = useState("#fff");
   const [imagest, setImagest] = useState(null);
   const [colorse, setColorse] = useState(null);
-  const [malumod,setMalumod]=useState()
   const [malumod2,setMalumod2]=useState()
   const[name,setName]=useState("")
   const { value, setValue,users,setUsers } = useContext(MyContext);
@@ -80,6 +79,7 @@ function Qoshish() {
       toast.error("Xato!")
       console.log(err);
     });
+    
     fetch("https://trello.vimlc.uz/api/boards/my-boards", {
       method: "GET",
       headers: {
@@ -95,25 +95,12 @@ function Qoshish() {
       console.log(err);
     });
  }
+ console.log(value);
  function Users(e){
   navigate("/home")
   setUsers(e)
-  
  }
- let data = localStorage.getItem("data");
-console.log("Raw Data from localStorage:", data); // Olingan ma'lumotni ko'rsatish
-
-if (data) {
-    try {
-        let parsedData = JSON.parse(data);
-        console.log("Parsed Data:", parsedData);
-    } catch (error) {
-        console.error("JSON parse error:", error);
-    }
-} else {
-    console.log("No data found in localStorage."); // Agar ma'lumot bo'lmasa
-}
-
+ let data = JSON.parse(localStorage.getItem("data"));
   return (
     <>
       <div className="relative bg-base-100 m-10">
@@ -137,7 +124,7 @@ if (data) {
     <h3 className="text-[32px] tracking-wider flex items-center font-[600] gap-3">
       Sizning ish joyingiz
     </h3>
-    <div className="text-[22px] tracking-wider flex gap-4 mt-5">
+    <div className="text-[22px] tracking-wider flex flex-wrap gap-4 mt-5">
       <button onClick={()=>{malumodlarn()}} className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taqdimotlar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Ishtirokchilar</button>
