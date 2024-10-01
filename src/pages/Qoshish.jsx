@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/useContext";
-// import { data } from "autoprefixer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Qoshish() {
   const [ochish, setYopish] = useState(false);
   const [colors, setColor] = useState(false);
@@ -14,6 +15,7 @@ function Qoshish() {
   const [malumod2,setMalumod2]=useState()
   const[name,setName]=useState("")
   const { value, setValue,users,setUsers } = useContext(MyContext);
+  
   console.log(malumod2)
   function imagests() {
     if (bg_images.includes("/")) {
@@ -79,9 +81,11 @@ function Qoshish() {
     })
     .then(response => response.json())
     .then(data => {
+      toast.success("Muvaffaqiyat!")
       console.log(data);
     })
     .catch(err => {
+      toast.error("Xato!")
       console.log(err);
     });
 
@@ -93,6 +97,7 @@ function Qoshish() {
     })
     .then(response => response.json())
     .then(datasa => {
+      localStorage.setItem("data",JSON.stringify(datasa.boards))
       setMalumod2(datasa.boards)
       console.log(datasa);
     })
@@ -104,10 +109,15 @@ function Qoshish() {
   setUsers(e)
  }
  console.log(malumod2);
+ let data=JSON.parse(localStorage.getItem("data"))
+ function  malumodlarn(){
+  setUsers("salom")
+  localStorage.setItem("korinish",true)
+ }
   return (
     <>
-      <div className="relative bg-base-100 pb-10">
-      <div className="max-w-[1280px] mx-auto mt-10">
+      <div className="relative bg-base-100 m-10">
+      <div className=" mt-10">
   <div>
     <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
       <img
@@ -128,7 +138,7 @@ function Qoshish() {
       Sizning ish joyingiz
     </h3>
     <div className="text-[22px] tracking-wider flex gap-4 mt-5">
-      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
+      <button onClick={()=>{malumodlarn()}} className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taqdimotlar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Ishtirokchilar</button>
       <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Sozlamalar</button>
@@ -142,8 +152,8 @@ function Qoshish() {
         Taxta yaratish
       </button>
     </div>
-    <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
-      {malumod2&&malumod2.map((e,id)=>(
+    <div className="mt-10 tracking-widest flex flex-wrap gap-5 ">
+      {data&&data.map((e,id)=>(
       <button key={e.id} onClick={()=>{Users(e)}}
       style={
         e.color.includes("/") ? {
@@ -925,6 +935,7 @@ function Qoshish() {
           className="absolute z-[25] top-0 bottom-0 left-0 right-0 bg-[#ffffff00]"
         ></div>
       )}
+      <ToastContainer />
     </>
   );
 }

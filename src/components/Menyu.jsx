@@ -1,14 +1,11 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
 function Menyu() {
-  
   return (
     <div className="bg-base-100 px-6  h-[91.5vh] flex flex-col items-center drop-shadow-xl">
 
       <div className="h-[70vh] flex flex-col justify-center items-center">
-        <div className=" flex flex-col gap-[25px]">
-          <NavLink to="/" className=" p-[14px] link  rounded-[12px]">
+        <div className="flex flex-col items-center gap-[25px]">
+          <NavLink to="/" className=" p-[14px] link  rounded-[12px] mt-10">
             <svg
               width="20"
               height="20"
@@ -70,7 +67,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="/datd5" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/home" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"
