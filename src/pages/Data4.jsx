@@ -44,7 +44,7 @@ const Data4 = () => {
         </header>
 
         <div className='flex w-full mb-7 gap-7'>
-        <div className="grid bg-base-300  rounded-[15px] w-[65%] grid-cols-3 gap-4 p-5 drop-shadow-lg">
+        <div className="grid bg-base-200  rounded-[15px] w-[65%] grid-cols-3 gap-4 p-5 drop-shadow-lg">
           {['Documents', 'Music', 'Work Project', 'Personal Media', 'Reddingo Backup', 'Root'].map((folder, index) => (
             <div key={index} className="gray-50 p-4 rounded-lg flex items-center">
               <Folder className="w-8 h-8 text-blue-500 mr-3" />
@@ -56,7 +56,7 @@ const Data4 = () => {
           ))}
         </div>
 
-        <div className=" bg-base-300 rounded-[15px] w-[35%] drop-shadow-lg p-5">
+        <div className=" bg-base-200 rounded-[15px] w-[35%] drop-shadow-lg p-5">
             <h3 className="text-lg font-semibold mb-2">Available Storage</h3>
             <div className="flex items-center">
               <ResponsiveContainer width="50%" height={100}>
@@ -91,7 +91,7 @@ const Data4 = () => {
         </div>
 
         <div className="flex  gap-7 w-full">
-          <div className='bg-base-300 w-[65%] rounded-[15px] drop-shadow-lg p-5'>
+          <div className='bg-base-200 w-[65%] rounded-[15px] drop-shadow-lg p-5'>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Recent File</h2>
           <a href="#" className="text-blue-500">View All</a>
@@ -138,7 +138,7 @@ const Data4 = () => {
 
         </div>
 
-          <div className="gray-50 bg-base-300 w-[35%] drop-shadow-lg rounded-[15px] p-5">
+          <div className="gray-50 bg-base-200 w-[35%] drop-shadow-lg rounded-[15px] p-5">
             <h3 className="text-lg font-semibold mb-2">Activity Chart</h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={activityData}>
