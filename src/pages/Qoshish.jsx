@@ -112,6 +112,7 @@ function Qoshish() {
   
  }
  console.log(malumod2);
+ onsole.log(malumod2);
  let data=JSON.parse(localStorage.getItem("data"))
  function  malumodlarn(){
   setUsers("salom")
