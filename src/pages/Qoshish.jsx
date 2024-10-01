@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/useContext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 function Qoshish() {
   const [ochish, setYopish] = useState(false);
   const [colors, setColor] = useState(false);
@@ -15,7 +16,7 @@ function Qoshish() {
   const [malumod2,setMalumod2]=useState()
   const[name,setName]=useState("")
   const { value, setValue,users,setUsers } = useContext(MyContext);
-  
+  const navigate = useNavigate();
   console.log(malumod2)
   function imagests() {
     if (bg_images.includes("/")) {
@@ -106,7 +107,9 @@ function Qoshish() {
     });
  }
  function Users(e){
+  navigate("/home")
   setUsers(e)
+  
  }
  console.log(malumod2);
  let data=JSON.parse(localStorage.getItem("data"))
