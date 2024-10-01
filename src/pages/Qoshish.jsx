@@ -80,7 +80,10 @@ function Qoshish() {
       console.log(err);
     });
     
-    fetch("https://trello.vimlc.uz/api/boards/my-boards", {
+    malumodOlish()
+ }
+ function malumodOlish(){
+  fetch("https://trello.vimlc.uz/api/boards/my-boards", {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${value}`
@@ -95,6 +98,7 @@ function Qoshish() {
       console.log(err);
     });
  }
+ malumodOlish()
  console.log(value);
  function Users(e){
   navigate("/home")
