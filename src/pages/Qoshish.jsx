@@ -101,10 +101,7 @@ function Qoshish() {
   
  }
  let data=JSON.parse(localStorage.getItem("data"))
- function  malumodlarn(){
-  setUsers("salom")
-  localStorage.setItem("korinish",true)
- }
+ 
   return (
     <>
       <div className="relative bg-base-100 m-10">
