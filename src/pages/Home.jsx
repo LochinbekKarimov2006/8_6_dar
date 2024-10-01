@@ -207,6 +207,7 @@ function Home() {
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [cardName, setCardName] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+ 
 
   const handleAddList = () => {
     if (listName.trim()) {
