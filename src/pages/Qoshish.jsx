@@ -100,19 +100,20 @@ function Qoshish() {
   setUsers(e)
   
  }
- let data = localStorage.getItem("data")||[];
- 
+ let data = localStorage.getItem("data");
+console.log("Raw Data from localStorage:", data); // Olingan ma'lumotni ko'rsatish
 
 if (data) {
     try {
-        data = JSON.parse(data);
-        console.log(data); 
+        let parsedData = JSON.parse(data);
+        console.log("Parsed Data:", parsedData);
     } catch (error) {
         console.error("JSON parse error:", error);
     }
 } else {
-    console.warn("No data found in localStorage");
+    console.log("No data found in localStorage."); // Agar ma'lumot bo'lmasa
 }
+
   return (
     <>
       <div className="relative bg-base-100 m-10">
