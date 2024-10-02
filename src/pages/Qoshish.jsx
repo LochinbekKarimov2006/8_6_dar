@@ -10,12 +10,12 @@ function Qoshish() {
   const [bg_images, setBg_images] = useState("#fff");
   const [imagest, setImagest] = useState(null);
   const [colorse, setColorse] = useState(null);
-  const [malumod,setMalumod]=useState([])
-  const[name,setName]=useState("")
+  const [malumod, setMalumod] = useState([]);
+  const [name, setName] = useState("");
   const { value, setValue } = useContext(MyContext);
   function imagests() {
     if (bg_images.includes("/")) {
-      setImagest(bg_images); 
+      setImagest(bg_images);
       setColorse(null);
       console.log("Image detected");
     } else {
@@ -59,113 +59,136 @@ function Qoshish() {
       setYopish(true);
     }
   }
-  function Yaratish(){
+  function Yaratish() {
     setYopish(false);
     let yaratish = {
-      "name": name,  // O'zgaruvchini string formatiga o'girish shart emas
-      "description": text,
-      "color": "red"
+      name: name,
+      description: text,
+      color: "red",
     };
-    let datas={
+    let datas = {
       name,
       text,
-      bg_images
-    }
-    setMalumod([...malumod,datas])
+      bg_images,
+    };
+    setMalumod([...malumod, datas]);
     fetch("https://trello.vimlc.uz/api/boards/create", {
-      method: "POST", // To'g'ri method
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${value}` // To'g'ri Authorization
+        Authorization: `Bearer ${value}`,
       },
-      body: JSON.stringify(yaratish) // To'g'ri JSON format
+      body: JSON.stringify(yaratish),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-
-    
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  function olish(){
+  function olish() {
     fetch("https://trello.vimlc.uz/api/boards/create", {
-      method: "GET", // To'g'ri method
+      method: "GET",
       headers: {
-        "Authorization": `Bearer ${value}` // To'g'ri Authorization
-      }
+        Authorization: `Bearer ${value}`,
+      },
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   return (
     <>
       <div className="relative bg-base-100">
-      <div className="max-w-[1280px] mx-auto mt-10">
-  <div>
-    <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
-      <img
-        className="w-10"
-        src="https://cdn-icons-png.flaticon.com/512/7329/7329814.png"
-        alt=""
-      />
-      Yaqinda korilgan
-    </h3>
-    <div className="mt-5 tracking-widest">
-      <button className="drop-shadow-lg w-[250px] h-[150px] bordedr-[1px] bg-base-200 rounded-[10px]">
-        Doska yaratish
-      </button>
-    </div>
-  </div>
-  <div className="mt-14">
-    <h3 className="text-[32px] tracking-wider flex items-center font-[600] gap-3">
-      Sizning ish joyingiz
-    </h3>
-    <div className="text-[22px] tracking-wider flex gap-4 mt-5">
-      <button onClick={()=>{olish()}} className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taxtalar</button>
-      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Taqdimotlar</button>
-      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Ishtirokchilar</button>
-      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Sozlamalar</button>
-      <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">Oshirish</button>
-      <button
-        onClick={() => {
-          Yopish();
-        }}
-        className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]"
-      >
-        Taxta yaratish
-      </button>
-    </div>
-    <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
-      {malumod&&malumod.map((e,id)=>(
-      <button key={id}
-      style={
-        e.bg_images.includes("/") ? {
-              backgroundImage: `url(${e.bg_images})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundPositionX: "center",
-            }:{ backgroundColor: e.bg_images }
-      } className="w-[230px] text-[18px] drop-shadow-lg text-white font-[600] h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]">
-        {e.name}
-      </button>
-      ))}
-     
-      <button onClick={()=>{setYopish(true)}} className="w-[230px] drop-shadow-lg h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]">
-        Doska yaratish
-      </button>
-    </div>
-  </div>
-      </div>
+        <div className="max-w-[1280px] mx-auto mt-10">
+          <div>
+            <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
+              <img
+                className="w-10"
+                src="https://cdn-icons-png.flaticon.com/512/7329/7329814.png"
+                alt=""
+              />
+              Yaqinda korilgan
+            </h3>
+            <div className="mt-5 tracking-widest">
+              <button className="drop-shadow-lg w-[250px] h-[150px] bordedr-[1px] bg-base-200 rounded-[10px]">
+                Doska yaratish
+              </button>
+            </div>
+          </div>
+          <div className="mt-14">
+            <h3 className="text-[32px] tracking-wider flex items-center font-[600] gap-3">
+              Sizning ish joyingiz
+            </h3>
+            <div className="text-[22px] tracking-wider flex gap-4 mt-5">
+              <button
+                onClick={() => {
+                  olish();
+                }}
+                className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]"
+              >
+                Taxtalar
+              </button>
+              <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">
+                Taqdimotlar
+              </button>
+              <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">
+                Ishtirokchilar
+              </button>
+              <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">
+                Sozlamalar
+              </button>
+              <button className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]">
+                Oshirish
+              </button>
+              <button
+                onClick={() => {
+                  Yopish();
+                }}
+                className="btn text-[22px] btn-neutral drop-shadow-lg bg-base-100 border-[#f0f0f0]"
+              >
+                Taxta yaratish
+              </button>
+            </div>
+            <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
+              {malumod &&
+                malumod.map((e, id) => (
+                  <button
+                    key={id}
+                    style={
+                      e.bg_images.includes("/")
+                        ? {
+                            backgroundImage: `url(${e.bg_images})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPositionX: "center",
+                          }
+                        : { backgroundColor: e.bg_images }
+                    }
+                    className="w-[230px] text-[18px] drop-shadow-lg text-white font-[600] h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]"
+                  >
+                    {e.name}
+                  </button>
+                ))}
+
+              <button
+                onClick={() => {
+                  setYopish(true);
+                }}
+                className="w-[230px] drop-shadow-lg h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]"
+              >
+                Doska yaratish
+              </button>
+            </div>
+          </div>
+        </div>
         {ochish && (
           <div className="absolute  w-full flex justify-center top-[-20px] tracking-[1px]">
             <div>
@@ -240,7 +263,9 @@ function Qoshish() {
                         </button>
                         <button
                           onClick={() => {
-                            setBg_images("https://avatars.mds.yandex.net/i?id=b54190d5d43f422dcdf67fabc5f70218_l-4284908-images-thumbs&n=13");
+                            setBg_images(
+                              "https://avatars.mds.yandex.net/i?id=b54190d5d43f422dcdf67fabc5f70218_l-4284908-images-thumbs&n=13"
+                            );
                           }}
                           className="w-[24%]"
                         >
@@ -252,7 +277,9 @@ function Qoshish() {
                         </button>
                         <button
                           onClick={() => {
-                            setBg_images("https://i.pinimg.com/originals/10/a6/b8/10a6b89b11f9e6e57b67f476cb658c1d.jpg");
+                            setBg_images(
+                              "https://i.pinimg.com/originals/10/a6/b8/10a6b89b11f9e6e57b67f476cb658c1d.jpg"
+                            );
                           }}
                           className="w-[24%]"
                         >
@@ -264,7 +291,9 @@ function Qoshish() {
                         </button>
                         <button
                           onClick={() => {
-                            setBg_images("https://avatars.mds.yandex.net/i?id=1a2b77f39ba1637ab0e5224e7e4013e1_l-5250549-images-thumbs&n=13");
+                            setBg_images(
+                              "https://avatars.mds.yandex.net/i?id=1a2b77f39ba1637ab0e5224e7e4013e1_l-5250549-images-thumbs&n=13"
+                            );
                           }}
                           className="w-[24%]"
                         >
@@ -312,14 +341,16 @@ function Qoshish() {
                           }}
                           className="bg-[#fff0] w-[55px] h-[40px] rounded-[5px] border-[1px] hover:bg-slate-50"
                         >
-                          
                           ৹৹৹
                         </button>
                       </div>
                     </div>
                     <label className="flex flex-col mt-5" htmlFor="">
                       Kengash sarlavhasi*
-                      <input onChange={(e)=>{setName(e.target.value)}}
+                      <input
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
                         type="text"
                         className="input input-bordered input-accent w-full "
                       />
@@ -348,7 +379,7 @@ function Qoshish() {
                                 className="flex py-5 hover:bg-base-300"
                               >
                                 <h2 className="w-[15%] flex flex-col justify-center px-2">
-                                <img
+                                  <img
                                     className="w-10"
                                     src="   https://cdn-icons-png.flaticon.com/512/2913/2913133.png "
                                     alt=""
@@ -390,7 +421,6 @@ function Qoshish() {
                                 className="flex py-5 hover:bg-base-300"
                               >
                                 <h2 className="w-[15%] text-[30px] flex flex-col px-2 justify-center">
-                                 
                                   🌐
                                 </h2>
                                 <div className="w-[80%]">
@@ -408,15 +438,22 @@ function Qoshish() {
                         </div>
                       </div>
                     </label>
-                    <button onClick={()=>{Yaratish()}} className="btn btn-outline w-full mt-7">
+                    <button
+                      onClick={() => {
+                        Yaratish();
+                      }}
+                      className="btn btn-outline w-full mt-7"
+                    >
                       Yratish
                     </button>
                     <button className="btn btn-outline w-full mt-3">
-                      Shablonga  muvofiq  qilish
+                      Shablonga muvofiq qilish
                     </button>
                     <span className="icon-sm icon-board boards-page-board-section-header-options-item-icon"></span>
                     <p className="text-[14px] tracking-[2px] mt-2">
-                    Unsplash saytidagi rasmlardan foydalanib, siz uning foydalanish shartlari va litsenziya qoidalarini qabul qilasiz.
+                      Unsplash saytidagi rasmlardan foydalanib, siz uning
+                      foydalanish shartlari va litsenziya qoidalarini qabul
+                      qilasiz.
                     </p>
                   </div>
                 </div>
@@ -453,7 +490,9 @@ function Qoshish() {
                         <div className="div-1">
                           <button
                             onClick={() => {
-                              setBg_images("https://avatars.mds.yandex.net/i?id=4f7586d49edaa427e07a8819562fc284_l-5248434-images-thumbs&n=13");
+                              setBg_images(
+                                "https://avatars.mds.yandex.net/i?id=4f7586d49edaa427e07a8819562fc284_l-5248434-images-thumbs&n=13"
+                              );
                             }}
                           >
                             <img
@@ -463,7 +502,9 @@ function Qoshish() {
                           </button>
                           <button
                             onClick={() => {
-                              setBg_images("https://avatars.mds.yandex.net/i?id=b54190d5d43f422dcdf67fabc5f70218_l-4284908-images-thumbs&n=13");
+                              setBg_images(
+                                "https://avatars.mds.yandex.net/i?id=b54190d5d43f422dcdf67fabc5f70218_l-4284908-images-thumbs&n=13"
+                              );
                             }}
                           >
                             <img
@@ -473,7 +514,9 @@ function Qoshish() {
                           </button>
                           <button
                             onClick={() => {
-                              setBg_images("https://i.pinimg.com/originals/10/a6/b8/10a6b89b11f9e6e57b67f476cb658c1d.jpg");
+                              setBg_images(
+                                "https://i.pinimg.com/originals/10/a6/b8/10a6b89b11f9e6e57b67f476cb658c1d.jpg"
+                              );
                             }}
                           >
                             <img
@@ -483,7 +526,9 @@ function Qoshish() {
                           </button>
                           <button
                             onClick={() => {
-                              setBg_images("https://avatars.mds.yandex.net/i?id=1a2b77f39ba1637ab0e5224e7e4013e1_l-5250549-images-thumbs&n=13");
+                              setBg_images(
+                                "https://avatars.mds.yandex.net/i?id=1a2b77f39ba1637ab0e5224e7e4013e1_l-5250549-images-thumbs&n=13"
+                              );
                             }}
                           >
                             <img
@@ -493,7 +538,9 @@ function Qoshish() {
                           </button>
                           <button
                             onClick={() => {
-                              setBg_images("https://i.pinimg.com/originals/b1/02/dc/b102dcda56577ee8b860b89dadf0f4c0.jpg");
+                              setBg_images(
+                                "https://i.pinimg.com/originals/b1/02/dc/b102dcda56577ee8b860b89dadf0f4c0.jpg"
+                              );
                             }}
                           >
                             <img
@@ -503,7 +550,9 @@ function Qoshish() {
                           </button>
                           <button
                             onClick={() => {
-                              setBg_images("https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcndvcmxkcy5yZXZvbGFydF9zY3JlZW5fNF9iMTA3bTBzbQ/screen-4.jpg?fakeurl=1&type=.jpg");
+                              setBg_images(
+                                "https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcndvcmxkcy5yZXZvbGFydF9zY3JlZW5fNF9iMTA3bTBzbQ/screen-4.jpg?fakeurl=1&type=.jpg"
+                              );
                             }}
                           >
                             <img
@@ -520,7 +569,9 @@ function Qoshish() {
                             <div className="div-1 pt-2">
                               <button
                                 onClick={() => {
-                                  setBg_images("https://smallgroupnetwork.com/wp-content/uploads/2017/05/amazing-animal-beautiful-beautifull.jpg");
+                                  setBg_images(
+                                    "https://smallgroupnetwork.com/wp-content/uploads/2017/05/amazing-animal-beautiful-beautifull.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -531,7 +582,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://dasart.ru/userdata/image/63/8c/638c0d4b54fda541ee98e50875d9a831.jpg");
+                                  setBg_images(
+                                    "https://dasart.ru/userdata/image/63/8c/638c0d4b54fda541ee98e50875d9a831.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -542,7 +595,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://www.newkaliningrad.ru/resize/900x600/upload/iblock/a45/zqtbfcmywyugg7tbfgt62gphsk1tx0fe.jpg");
+                                  setBg_images(
+                                    "https://www.newkaliningrad.ru/resize/900x600/upload/iblock/a45/zqtbfcmywyugg7tbfgt62gphsk1tx0fe.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -553,7 +608,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://i.redd.it/y5fk4e5lcuuz.jpg");
+                                  setBg_images(
+                                    "https://i.redd.it/y5fk4e5lcuuz.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -564,7 +621,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://cdn1.ozone.ru/s3/multimedia-8/6465020324.jpg");
+                                  setBg_images(
+                                    "https://cdn1.ozone.ru/s3/multimedia-8/6465020324.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -575,7 +634,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/3934197/img_id2400378468325171676.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/3934197/img_id2400378468325171676.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -586,7 +647,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/6219218/img_id1978363761087820185.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/6219218/img_id1978363761087820185.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -597,7 +660,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://wallup.net/wp-content/uploads/2019/09/175148-scenery-sky-mountains-grass-nature.jpg");
+                                  setBg_images(
+                                    "https://wallup.net/wp-content/uploads/2019/09/175148-scenery-sky-mountains-grass-nature.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -608,7 +673,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/5173454/img_id5379542027415187963.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/5173454/img_id5379542027415187963.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -617,13 +684,14 @@ function Qoshish() {
                                   alt=""
                                 />
                               </button>
-
                             </div>
                             <div className="border-b-[1px] border-[#f0f0f04b] py-2"></div>
                             <div className="div-1 mt-4">
                               <button
                                 onClick={() => {
-                                  setBg_images("https://main-cdn.sbermegamarket.ru/hlr-system/135/955/726/152/175/9/600011875847b0.jpeg");
+                                  setBg_images(
+                                    "https://main-cdn.sbermegamarket.ru/hlr-system/135/955/726/152/175/9/600011875847b0.jpeg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -634,7 +702,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/i?id=da0a1b7395b36a884f28ae8a3f8f4383_l-5165563-images-thumbs&n=13");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/i?id=da0a1b7395b36a884f28ae8a3f8f4383_l-5165563-images-thumbs&n=13"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -645,7 +715,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://i.pinimg.com/originals/1a/2c/33/1a2c33c72e0e953dc0842c198784a7ef.jpg");
+                                  setBg_images(
+                                    "https://i.pinimg.com/originals/1a/2c/33/1a2c33c72e0e953dc0842c198784a7ef.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -656,7 +728,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/i?id=46729492e064ed566b95d404777eeb3d_l-10695130-images-thumbs&ref=rim&n=13&w=1280&h=720");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/i?id=46729492e064ed566b95d404777eeb3d_l-10695130-images-thumbs&ref=rim&n=13&w=1280&h=720"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -667,7 +741,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://naked-science.ru/wp-content/uploads/2016/04/article_wave-sea-water-ocean-splash-nature-1800x2880.jpg");
+                                  setBg_images(
+                                    "https://naked-science.ru/wp-content/uploads/2016/04/article_wave-sea-water-ocean-splash-nature-1800x2880.jpg"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -678,7 +754,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/5232651/img_id8067509333734739102.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/5232651/img_id8067509333734739102.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -689,7 +767,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/5319505/img_id3754869592499096480.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/5319505/img_id3754869592499096480.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -700,7 +780,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/get-mpic/1599966/img_id6646345198442202241.jpeg/orig");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/get-mpic/1599966/img_id6646345198442202241.jpeg/orig"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >
@@ -711,7 +793,9 @@ function Qoshish() {
                               </button>
                               <button
                                 onClick={() => {
-                                  setBg_images("https://avatars.mds.yandex.net/i?id=753e7c17d45612b14131594cc4c07059_l-7552222-images-thumbs&ref=rim&n=13&w=1000&h=669");
+                                  setBg_images(
+                                    "https://avatars.mds.yandex.net/i?id=753e7c17d45612b14131594cc4c07059_l-7552222-images-thumbs&ref=rim&n=13&w=1000&h=669"
+                                  );
                                 }}
                                 className="bg-[#000]"
                               >

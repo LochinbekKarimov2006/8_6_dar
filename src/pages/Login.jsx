@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import axios from "axios";
 import { MyContext } from "../context/useContext";
+import axios from "../axios/Interseptor";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,19 +47,11 @@ const Login = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        const response = await axios.post(
-          "https://trello.vimlc.uz/api/auth/login",
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        axios.post("https://trello.vimlc.uz/api/auth/login", formData);
         console.log("Login successful:", response.data);
 
         if (response.data.token) {
-          setValue(response.data.token)
+          setValue(response.data.token);
           console.log(response.data.token);
           localStorage.setItem("token", response.data.token);
           console.log("Token saved to localStorage");

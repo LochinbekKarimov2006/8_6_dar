@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import axios from "axios";
-
+import axios from "../axios/Interseptor";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -68,15 +67,7 @@ const Register = () => {
       };
 
       try {
-        const response = await axios.post(
-          "https://trello.vimlc.uz/api/auth/register",
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        axios.post("https://trello.vimlc.uz/api/auth/register", formData);
         console.log("Registration successful:", response.data);
         navigate("/login");
         setErrors({});

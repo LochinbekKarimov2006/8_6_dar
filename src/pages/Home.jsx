@@ -278,10 +278,8 @@ function Home() {
       (card) => card.id === parseInt(draggableId)
     );
 
-    // Remove the card from the source list
     sourceList.cards.splice(source.index, 1);
 
-    // Add the card to the destination list
     destList.cards.splice(destination.index, 0, draggedCard);
 
     const updatedLists = [...lists];
@@ -304,7 +302,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="p-4 bg-gray-900 min-h-screen">
+    <div className="p-4 min-h-screen">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex space-x-4 overflow-x-auto">
           {lists.map((list) => (
@@ -416,7 +414,7 @@ function Home() {
           ) : (
             <button
               onClick={() => setIsAddingList(true)}
-              className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
+              className="flex items-center gap-2 bg-slate-600 hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium transition-colors h-10"
             >
               <Plus size={16} />
               Add a list

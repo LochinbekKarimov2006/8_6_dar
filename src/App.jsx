@@ -5,6 +5,7 @@ import MainLeaut2 from './layout/MainLeaut2';
 import Home from './pages/Home';
 import AboutUser from './pages/User';
 import Data from './pages/Data';
+import Data1 from './pages/Data1';
 import Data2 from './pages/Data2';
 import Qoshish from './pages/Qoshish';
 import Provayder from './components/Provayder';
@@ -43,6 +44,10 @@ function App() {
         {
           path: '/data',
           element: <Data />,
+        },
+        {
+          path: '/data1',
+          element: <Data1 />,
         },
         {
           path: '/data2',
