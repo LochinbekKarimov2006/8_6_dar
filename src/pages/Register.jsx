@@ -4,6 +4,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import axios from "../axios/Interseptor";
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -19,7 +20,6 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
     const email = emailRef.current.value;
     const firstName = firstNameRef.current.value;
     const lastName = lastNameRef.current.value;
@@ -67,18 +67,15 @@ const Register = () => {
       };
 
       try {
-        axios.post("https://trello.vimlc.uz/api/auth/register", formData);
+        const response = await axios.post("https://trello.vimlc.uz/api/auth/register", formData);
         console.log("Registration successful:", response.data);
         navigate("/login");
         setErrors({});
       } catch (error) {
         console.error("Error during registration:", error);
         if (error.response) {
-          console.error("Response data:", error.response.data);
           setErrors({
-            api:
-              error.response.data.message ||
-              "Registration failed. Please try again.",
+            api: error.response.data?.message || "Registration failed. Please try again.",
           });
         } else {
           setErrors({ api: "An error occurred during registration." });
@@ -181,9 +178,7 @@ const Register = () => {
             )}
           </button>
           {errors.confirmPassword && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.confirmPassword}
-            </p>
+            <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
           )}
         </div>
         {errors.api && (

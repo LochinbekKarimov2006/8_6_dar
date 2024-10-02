@@ -14,6 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { value, setValue } = useContext(MyContext);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -47,12 +48,11 @@ const Login = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        axios.post("https://trello.vimlc.uz/api/auth/login", formData);
+        const response = await axios.post("https://trello.vimlc.uz/api/auth/login", formData);
         console.log("Login successful:", response.data);
 
         if (response.data.token) {
           setValue(response.data.token);
-          console.log(response.data.token);
           localStorage.setItem("token", response.data.token);
           console.log("Token saved to localStorage");
         } else {
@@ -63,9 +63,7 @@ const Login = () => {
       } catch (error) {
         console.error("Login failed:", error);
         setErrors({
-          api:
-            error.response?.data?.message ||
-            "Login failed. Please check your credentials or try again later.",
+          api: error.response?.data?.message || "Login failed. Please check your credentials or try again later.",
         });
       } finally {
         setIsLoading(false);
@@ -75,9 +73,7 @@ const Login = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-28 p-6 bg-white rounded-lg shadow-xl">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-        Login
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -91,10 +87,9 @@ const Login = () => {
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
             disabled={isLoading}
+            aria-invalid={errors.email ? "true" : "false"}
           />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-          )}
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
         <div className="relative">
           <input
@@ -107,26 +102,20 @@ const Login = () => {
               errors.password ? "border-red-500" : "border-gray-300"
             }`}
             disabled={isLoading}
+            aria-invalid={errors.password ? "true" : "false"}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
             disabled={isLoading}
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? (
-              <EyeOff className="h-5 w-5" />
-            ) : (
-              <Eye className="h-5 w-5" />
-            )}
+            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
-          {errors.password && (
-            <p className="text-red-500 text-xs mt-1">{errors.password}</p>
-          )}
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
         </div>
-        {errors.api && (
-          <p className="text-red-500 text-sm text-center">{errors.api}</p>
-        )}
+        {errors.api && <p className="text-red-500 text-sm text-center">{errors.api}</p>}
         <button
           type="submit"
           className={`w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-150 ease-in-out`}
@@ -138,7 +127,7 @@ const Login = () => {
 
       <p className="mt-4 text-center text-sm text-gray-600">
         Don't have an account?{" "}
-        <Link to="/sigin" className="text-blue-500">
+        <Link to="/register" className="text-blue-500">
           REGISTER
         </Link>
       </p>
