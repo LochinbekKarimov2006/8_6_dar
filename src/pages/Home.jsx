@@ -499,6 +499,7 @@ function Home() {
           onSave={updateCard}
         />
       )}
+
     </div>
   );
 }
