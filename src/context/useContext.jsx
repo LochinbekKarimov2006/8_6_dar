@@ -4,11 +4,10 @@ import React, { createContext, useState } from 'react';
 export const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-    const [value, setValue] = useState(null); 
-    const [users,setUsers]=useState()
-    const [users2,setUsers2]=useState()
+    const [value, setValue] = useState(null); // Misol uchun
+
     return (
-        <MyContext.Provider value={{ value, setValue,users,setUsers,users2,setUsers2 }}>
+        <MyContext.Provider value={{ value, setValue }}>
             {children}
         </MyContext.Provider>
     );

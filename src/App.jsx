@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
+import MainLeaut2 from './layout/MainLeaut2';
 import Home from './pages/Home';
 import AboutUser from './pages/User';
 import Data from './pages/Data';
+import Data1 from './pages/Data1';
 import Data2 from './pages/Data2';
 import Qoshish from './pages/Qoshish';
 import Provayder from './components/Provayder';
@@ -14,35 +16,26 @@ import Data3 from './pages/Data3';
 import Data4 from './pages/Data4';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [data, setData] = useState(true);
+  const [user,setUser]=useState(null)
   const { value, setValue } = useContext(MyContext);
-  const datas=localStorage.getItem('data')
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setValue(token);  // Tokenni contextga saqlash
-    }
-  }, [setValue]);
-  useEffect(() => {
-    setUser(value); 
-  }, [value]);
+  const datas=localStorage.getItem("token")
+ if(datas){
+  setValue(datas)
+ }
+  useEffect(()=>{
+    setUser(value)
+  },[value])
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <Provayder user={user}>
-          { <MainLayout /> }
-        </Provayder>
-      ),
+      element:<Provayder user={user}>
+        {data ? <MainLayout /> : <MainLeaut2 />}
+      </Provayder>,
       children: [
         {
-          path:"/",
-          element:<Qoshish/>
-        },
-        {
-          path: '/home',
-          element:<Home />,
+          path: '/',
+          element: data ? <Home /> : <Qoshish />,
         },
         {
           path: '/user',
@@ -53,26 +46,30 @@ function App() {
           element: <Data />,
         },
         {
+          path: '/data1',
+          element: <Data1 />,
+        },
+        {
           path: '/data2',
           element: <Data2 />,
         },
         {
-          path: '/data3',
-          element: <Data3 />,
+          path:"/data3",
+          element:<Data3/>
         },
         {
-          path: '/data4',
-          element: <Data4 />,
+          path:"/data4",
+          element:<Data4/>
         }
       ],
     },
     {
-      path: '/login',
-      element: user ? <Navigate to="/" /> : <Login />,
+      path:"/login",
+      element :user?<Navigate to="/"/>:<Login/>
     },
     {
-      path: '/sigin',
-      element: user ? <Navigate to="/" /> : <Register />,
+      path:"/sigin",
+      element:user?<Navigate to="/"/>:<Register/>
     }
   ]);
  
@@ -81,3 +78,4 @@ function App() {
 }
 
 export default App;
+
