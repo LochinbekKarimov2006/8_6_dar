@@ -96,7 +96,6 @@ const Data4 = () => {
           <h2 className="text-xl font-semibold">Recent File</h2>
           <a href="#" className="text-blue-500">View All</a>
         </div>
-
         <table className="w-full">
           <thead>
             <tr className="text-left text-gray-500">

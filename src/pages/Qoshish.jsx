@@ -79,11 +79,7 @@ function Qoshish() {
       toast.error("Xato!")
       console.log(err);
     });
-    
-    malumodOlish()
- }
- function malumodOlish(){
-  fetch("https://trello.vimlc.uz/api/boards/my-boards", {
+    fetch("https://trello.vimlc.uz/api/boards/my-boards", {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${value}`
@@ -98,7 +94,22 @@ function Qoshish() {
       console.log(err);
     });
  }
- malumodOlish()
+// useEffect(()=>{
+//   fetch("https://trello.vimlc.uz/api/boards/my-boards", {
+//           method: "GET",
+//           headers: {
+//             "Authorization": `Bearer ${value}`
+//           }
+//         })
+//         .then(response => response.json())
+//         .then(datasa => {
+//           localStorage.setItem("data",JSON.stringify(datasa.boards))
+//           setMalumod2(datasa.boards)
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         });
+// },[])
  console.log(value);
  function Users(e){
   navigate("/home")

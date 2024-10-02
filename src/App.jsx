@@ -75,6 +75,7 @@ function App() {
       element: user ? <Navigate to="/" /> : <Register />,
     }
   ]);
+ 
 
   return <RouterProvider router={router} />;
 }
