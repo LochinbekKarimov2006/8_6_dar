@@ -119,7 +119,7 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
                       <span>splinter wow</span>
                     </div>
                   </div>
-                )}
+                )}{" "}
                 <button
                   className="w-full bg-gray-700 text-left text-white p-2 rounded mb-2 hover:bg-gray-600 flex items-center justify-between"
                   onClick={() => setShowLabels(!showLabels)}
@@ -468,7 +468,7 @@ function Home() {
                   className="bg-gray-400 text-black rounded-md px-3 py-2 text-sm font-medium"
                 >
                   Add list ➕
-                </button>
+                </button>2
                 <button
                   onClick={() => {
                     setIsAddingList(false);
