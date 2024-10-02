@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Plus,
   X,
@@ -196,8 +196,10 @@ const TrelloLikeModal = ({ card, onClose, onUpdate }) => {
 };
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { MyContext } from "../context/useContext";
+import { useParams } from "react-router-dom";
 function Home() {
+  let parmis=useParams()
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState(null);
   const [isAddingList, setIsAddingList] = useState(false);
@@ -205,7 +207,29 @@ function Home() {
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [cardName, setCardName] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
-
+  const {value, setValue,value2, setValue2} = useContext(MyContext);
+  const token = localStorage.getItem('token')
+  function malumod(){
+    let datas={
+      title:cardName,
+      boardId:parmis.id,
+      dueDate:Date.now(),
+    }
+    try {
+        fetch("https://trello.vimlc.uz/api/tasks/create", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(datas)
+      })
+      .then(resp =>{
+        console.log(resp);
+      })
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
+  }
   const handleAddList = () => {
     if (listName.trim()) {
       const newList = { id: Date.now(), name: listName.trim(), cards: [] };
@@ -214,7 +238,6 @@ function Home() {
       setIsAddingList(false);
     }
   };
-
   const handleAddCard = () => {
     if (cardName.trim() && currentList) {
       const newCard = {
@@ -240,7 +263,6 @@ function Home() {
       setIsAddingCard(false);
     }
   };
-
   const openCardModal = (card) => {
     setSelectedCard(card);
   };
@@ -248,7 +270,6 @@ function Home() {
   const closeCardModal = () => {
     setSelectedCard(null);
   };
-
   const updateCard = (updatedCard) => {
     const updatedLists = lists.map((list) => ({
       ...list,
@@ -300,9 +321,12 @@ function Home() {
       d.getElementsByTagName("head")[0].appendChild(s);
     })();
   }, []);
-
+console.log(value2);
   return (
     <div className="p-4 min-h-screen">
+        <div className="mb-5">
+          <h2 className="text-[20px]">{value2.name}</h2>
+        </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex space-x-4 overflow-x-auto">
           {lists.map((list) => (
@@ -351,7 +375,7 @@ function Home() {
                       />
                       <div className="flex justify-between items-center">
                         <button
-                          onClick={handleAddCard}
+                          onClick={()=>{malumod(),handleAddCard()}}
                           className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-2 py-1 text-sm font-medium transition-colors"
                         >
                           Add card

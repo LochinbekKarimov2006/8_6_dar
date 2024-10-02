@@ -42,7 +42,7 @@ function Menyu() {
               />
             </svg>
           </NavLink>
-          <NavLink to="data1" className=" p-[14px] link  rounded-[12px]">
+          <NavLink to="/home" className=" p-[14px] link  rounded-[12px]">
             <svg
               width="20"
               height="20"

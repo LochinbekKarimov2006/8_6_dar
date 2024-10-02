@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
-import MainLeaut2 from './layout/MainLeaut2';
 import Home from './pages/Home';
 import AboutUser from './pages/User';
 import Data from './pages/Data';
@@ -14,12 +12,14 @@ import Register from './pages/Register';
 import { MyContext } from './context/useContext';
 import Data3 from './pages/Data3';
 import Data4 from './pages/Data4';
+import MainLayout from './layout/MainLeaut';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
-  const [data, setData] = useState(true);
-  const [user,setUser]=useState(null)
+  const [user,setUser]=useState(true)
   const { value, setValue } = useContext(MyContext);
   const datas=localStorage.getItem("token")
+  console.log(value);
  if(datas){
   setValue(datas)
  }
@@ -30,12 +30,16 @@ function App() {
     {
       path: '/',
       element:<Provayder user={user}>
-        {data ? <MainLayout /> : <MainLeaut2 />}
+        <MainLayout/>
       </Provayder>,
       children: [
         {
           path: '/',
-          element: data ? <Home /> : <Qoshish />,
+          element: <Qoshish />,
+        },
+        {
+          path:"/home/:id",
+          element:<Home/>
         },
         {
           path: '/user',
@@ -60,6 +64,10 @@ function App() {
         {
           path:"/data4",
           element:<Data4/>
+        },
+        {
+          path:"*",
+          element:<ErrorPage/>
         }
       ],
     },

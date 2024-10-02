@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../context/useContext";
-// import { data } from "autoprefixer";
+import { useNavigate } from "react-router-dom";
 function Qoshish() {
   const [ochish, setYopish] = useState(false);
   const [colors, setColor] = useState(false);
@@ -10,9 +10,10 @@ function Qoshish() {
   const [bg_images, setBg_images] = useState("#fff");
   const [imagest, setImagest] = useState(null);
   const [colorse, setColorse] = useState(null);
-  const [malumod, setMalumod] = useState([]);
+  const [malumod2, setMalumod2] = useState();
   const [name, setName] = useState("");
-  const { value, setValue } = useContext(MyContext);
+  const { value, setValue2 } = useContext(MyContext);
+  const navigate = useNavigate();
   function imagests() {
     if (bg_images.includes("/")) {
       setImagest(bg_images);
@@ -24,41 +25,27 @@ function Qoshish() {
       console.log("Color detected");
     }
   }
+
   useEffect(() => {
     imagests();
   }, [bg_images]);
+
   function color() {
-    if (colors) {
-      console.log("salom");
-      setColor(false);
-    } else {
-      console.log("hayir");
-      setColor(true);
-    }
+    setColor((prev) => !prev);
   }
+
   function bg_colors() {
-    if (bg_color) {
-      SetBg_Coloes(false);
-    } else {
-      SetBg_Coloes(true);
-    }
+    SetBg_Coloes((prev) => !prev);
   }
+
   function image() {
-    if (images) {
-      console.log("salom");
-      setImages(false);
-    } else {
-      console.log("hayir");
-      setImages(true);
-    }
+    setImages((prev) => !prev);
   }
+
   function Yopish() {
-    if (ochish) {
-      setYopish(false);
-    } else {
-      setYopish(true);
-    }
+    setYopish((prev) => !prev);
   }
+
   function Yaratish() {
     setYopish(false);
     let yaratish = {
@@ -66,12 +53,7 @@ function Qoshish() {
       description: text,
       color: "red",
     };
-    let datas = {
-      name,
-      text,
-      bg_images,
-    };
-    setMalumod([...malumod, datas]);
+
     fetch("https://trello.vimlc.uz/api/boards/create", {
       method: "POST",
       headers: {
@@ -80,79 +62,48 @@ function Qoshish() {
       },
       body: JSON.stringify(yaratish),
     })
-<<<<<<< HEAD
-    .then(response => response.json())
-    .then(data => {
-      toast.success("Muvaffaqiyat!")
-    })
-    .catch(err => {
-      toast.error("Xato!")
-      console.log(err);
-    });
-    fetch("https://trello.vimlc.uz/api/boards/my-boards", {
-=======
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        toast.success("Muvaffaqiyat!");
       })
       .catch((err) => {
+        toast.error("Xato!");
         console.log(err);
       });
   }
-  function olish() {
-    fetch("https://trello.vimlc.uz/api/boards/create", {
->>>>>>> 27bcac806307ca72fd40b011a6b4481075f49553
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${value}`,
-      },
-    })
-<<<<<<< HEAD
-    .then(response => response.json())
-    .then(datasa => {
-      localStorage.setItem("data",JSON.stringify(datasa.boards))
-      setMalumod2(datasa.boards)
-    })
-    .catch(err => {
-      console.log(err);
-    });
- }
-// useEffect(()=>{
-//   fetch("https://trello.vimlc.uz/api/boards/my-boards", {
-//           method: "GET",
-//           headers: {
-//             "Authorization": `Bearer ${value}`
-//           }
-//         })
-//         .then(response => response.json())
-//         .then(datasa => {
-//           localStorage.setItem("data",JSON.stringify(datasa.boards))
-//           setMalumod2(datasa.boards)
-//         })
-//         .catch(err => {
-//           console.log(err);
-//         });
-// },[])
- console.log(value);
- function Users(e){
-  navigate("/home")
-  setUsers(e)
- }
- let data = JSON.parse(localStorage.getItem("data"));
-=======
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+
+  useEffect(() => {
+    function olish() {
+      fetch("https://trello.vimlc.uz/api/boards/my-boards", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${value}`,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => response.json())
+        .then((datasa) => {
+          setMalumod2(datasa.boards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (value) {
+      olish();
+    }
+  }, [value]);
+
+  console.log(malumod2);
+  console.log(value);
+  function malumodOlish(e) {
+    setValue2(e);
+    navigate(`/home/${e.id}`);
   }
->>>>>>> 27bcac806307ca72fd40b011a6b4481075f49553
   return (
     <>
-      <div className="relative bg-base-100">
-        <div className="max-w-[1280px] mx-auto mt-10">
+      <div className="relative bg-base-100 p-10">
+        <div className="w-full mx-auto">
           <div>
             <h3 className="text-[28px] tracking-wider flex items-center font-[600] gap-3">
               <img
@@ -203,20 +154,23 @@ function Qoshish() {
               </button>
             </div>
             <div className="mt-10 tracking-widest flex flex-wrap gap-5 w-[1280px]">
-              {malumod &&
-                malumod.map((e, id) => (
+              {malumod2 &&
+                malumod2.map((e, id) => (
                   <button
+                    onClick={() => {
+                      malumodOlish(e);
+                    }}
                     key={id}
                     style={
-                      e.bg_images.includes("/")
+                      e.color.includes("/")
                         ? {
-                            backgroundImage: `url(${e.bg_images})`,
+                            backgroundImage: `url(${e.color})`,
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                             backgroundPositionX: "center",
                           }
-                        : { backgroundColor: e.bg_images }
+                        : { backgroundColor: e.color }
                     }
                     className="w-[230px] text-[18px] drop-shadow-lg text-white font-[600] h-[130px] bordedr-[1px] bg-base-200 rounded-[10px]"
                   >
